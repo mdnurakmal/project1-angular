@@ -2,7 +2,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
-import { LoginService } from './modules/login/services/login.service';
+import { LoginService } from './modules/shared/services/login.service';
 
 @Component({
   selector: 'app-root',

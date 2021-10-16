@@ -1,10 +1,10 @@
 import { NgModule, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ROUTES, Routes } from '@angular/router';
-import { LoginService } from 'src/app/modules/login/services/login.service';
+import { LoginService } from 'src/app/modules/shared/services/login.service';
 import { SidebarComponent } from 'src/app/modules/sidebar/sidebar.component';
 import { ChatComponent } from 'src/app/modules/chat/chat.component';
-import { LoginComponent } from './components/login.component';
+import { LoginComponent } from './login.component';
 import { FormsModule } from '@angular/forms';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { LoginRoutingModule } from './login-routing.module';
@@ -32,7 +32,7 @@ import { LoginRoutingModule } from './login-routing.module';
 
 export class LoginModule implements OnInit{
   constructor() {
-  
+    console.log("hello from login module here");
    }
   ngOnInit(): void {
     console.log("hello from login module");

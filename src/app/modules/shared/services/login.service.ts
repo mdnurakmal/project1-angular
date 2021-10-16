@@ -27,9 +27,7 @@ export class LoginService {
     console.log("hello here");
     //const i = this.router.config.findIndex(x => x.path === 'chat');
     //this.router.config.splice(i, 1);
-    this.router.config.push(
-      {path: 'chat', loadChildren: () => import('../login.module').then(mod => mod.LoginModule)}
-    );
+
 
     this.printpath('', this.router.config);
 

@@ -10,7 +10,7 @@ export class LoginComponent  {
 
 
   constructor(public auth : AuthService){
-
+    console.log("inside login component ")
   }
   conversation;
   
