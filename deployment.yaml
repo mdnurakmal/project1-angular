@@ -45,7 +45,7 @@ kind: Ingress
 metadata:
   name: managed-cert-ingress
   annotations:
-    kubernetes.io/ingress.global-static-ip-name: 34.149.254.157
+    kubernetes.io/ingress.global-static-ip-name: 34.96.66.21
     networking.gke.io/managed-certificates: managed-cert
     kubernetes.io/ingress.class: "gce"
 spec:
