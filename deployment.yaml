@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: angular
+  name: angular
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: angular
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: angular
+    spec:
+      containers:
+        - image: mdnurakmal/project1-angular:latest
+          name: project1-angular
+          resources: {}
+
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: angular
+  name: angular
+spec:
+  ports:
+    - name: 8080-8080
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: angular
+  type: ClusterIP
+status:
+  loadBalancer: {}
