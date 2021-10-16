@@ -1,21 +1,27 @@
-import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { StudentService } from './student.service';
+
+import { CommonModule } from '@angular/common';
+
+import { AuthModule } from '@auth0/auth0-angular';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    HttpClientModule,
-    FormsModule
+    CommonModule,
+    AppRoutingModule,
+
+     // Import the module into the application, with configuration
+     AuthModule.forRoot({
+      domain: 'dev-4srngy77.us.auth0.com',
+      clientId: '8m0HtJPNOK5TLdjyZFrAtMpP0F6RaeD0',
+    }),
   ],
-  providers: [StudentService],
-  bootstrap: [AppComponent]
+  providers: [],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
