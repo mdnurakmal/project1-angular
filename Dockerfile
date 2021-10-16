@@ -23,6 +23,6 @@ FROM nginx:latest
 
 # Copy the build output to replace the default nginx contents.
 COPY --from=build /usr/local/app/dist/whatsapp-clone /usr/share/nginx/html
-
+COPY nginx.conf /etc/nginx/conf.d/nginx.conf
 # Expose port 80
 EXPOSE 80
