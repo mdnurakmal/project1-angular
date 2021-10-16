@@ -34,6 +34,27 @@ spec:
   selector:
     app: angular
   ports:
-    - port: 80
+    - protocol: TCP
+      port: 80
       targetPort: 80
-  type: LoadBalancer
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: angular-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: angular-service
+            port:
+              number: 80
+
+            
