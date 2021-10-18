@@ -21,9 +21,4 @@
     <app-chat [conversation]="conversation" *ngIf="conversation"></app-chat>
   </div>
 </div>
-<button *ngIf="auth.isAuthenticated$ | async" (click)="logout()">
-  Log out
-</button>
-
-<button (click)="sendMessage('test')" class="btn btn-default" type="submit">Send</button>
 <router-outlet></router-outlet>
