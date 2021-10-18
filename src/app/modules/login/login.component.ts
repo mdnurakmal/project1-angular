@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
+import { DataService } from '../shared/services/data.service';
+import { WebSocketAPI } from '../shared/services/WebSocketAPI.service';
 
 @Component({
   selector: 'app-login',
@@ -9,10 +11,14 @@ import { AuthService } from '@auth0/auth0-angular';
 export class LoginComponent  {
 
 
-  constructor(public auth : AuthService){
+  constructor(public auth : AuthService,){
     console.log("inside login component ")
+  
+    this.webSocketAPI = new WebSocketAPI();
+    this.webSocketAPI._connect();
   }
   conversation;
+  webSocketAPI: WebSocketAPI;
   
   onConversationSelected(conversation){
     this.conversation = conversation;

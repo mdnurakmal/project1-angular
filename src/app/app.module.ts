@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
 
 import { AuthModule } from '@auth0/auth0-angular';
+import { LoginModule } from './modules/login/login.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,7 +15,6 @@ import { AuthModule } from '@auth0/auth0-angular';
     BrowserModule,
     CommonModule,
     AppRoutingModule,
-
      // Import the module into the application, with configuration
      AuthModule.forRoot({
       domain: 'dev-4srngy77.us.auth0.com',
