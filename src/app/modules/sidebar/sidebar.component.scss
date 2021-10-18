@@ -4,7 +4,7 @@
   border-right: 1px solid #e1e4e5;
   display: flex;
   flex-direction: column;
-
+  transition:all 1s linear;
   #row1 {
     display: flex;
     flex-direction: column;
@@ -163,4 +163,9 @@
 ::-webkit-scrollbar-thumb {
   background: lightgrey;
   border-radius: 10px;
+}
+
+.test {
+  left:60px;
+  background:red;
 }

@@ -1,14 +1,39 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  // ...
+} from '@angular/animations';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
+import { NewchatComponent } from '../newchat/newchat.component';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
+  animations: [
+    trigger('slideMenu', [
+      state('false', style({
+        transform: 'translateX(-250px)'
+      })),
+      state('true', style({
+        transform: 'translateX(0)'
+      })),
+      transition('true <=> false', animate('400ms ease-in-out'))
+    ],
+    )
+  ]
 })
 export class SidebarComponent implements OnInit {
+  public visible : boolean = false;
   @Output() conversationClicked: EventEmitter<any> = new EventEmitter();
   
+  @ViewChild(NewchatComponent)
+  private newchatComponent: NewchatComponent;
+
   searchText: string;
   conversations = [
     {
@@ -195,8 +220,17 @@ export class SidebarComponent implements OnInit {
   }
 
   constructor(public auth : AuthService){
-
+    this.visible=false;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log("init");
+  }
+
+  doSomething(name : string, $event) {
+    this.visible = !this.visible;
+    console.log("hellooo from do something:" +  this.visible);
+  }
+
+
 }

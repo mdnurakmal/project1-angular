@@ -1,3 +1,4 @@
+<app-newchat [visible]="visible" ></app-newchat> 
 <div id="sidebar">
   <div id="row1">
     <div id="sidebarHeader">
@@ -6,7 +7,7 @@
       </div>
       <div class="actionsContainer">
         <img src="../../assets/images/statusIcon.svg" />
-        <img src="../../assets/images/chatIcon.svg" />
+        <input (click)="doSomething('testing', $event)" type="image" src="../../assets/images/chatIcon.svg" />
         <img src="../../assets/images/moreVertIcon.svg" />
       </div>
     </div>
