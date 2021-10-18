@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DirectChatService } from '../shared/services/directChat.service';
 
 import { WebSocketAPI } from '../shared/services/WebSocketAPI.service';
 
@@ -13,8 +14,11 @@ export class ChatComponent implements OnInit {
   emojiPickerVisible;
   message = '';
   receiver ='';
-  constructor(public webSocketAPI : WebSocketAPI){
-
+  constructor(public webSocketAPI : WebSocketAPI,public directChatService : DirectChatService){
+    this.directChatService.getVar().subscribe((data) => {
+      console.log(data);
+      this.receiver=data;
+    } );
   }
 
   ngOnInit(): void {}

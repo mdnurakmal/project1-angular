@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
+import { DirectChatService } from '../shared/services/directChat.service';
 import { WebSocketAPI } from '../shared/services/WebSocketAPI.service';
 
 @Component({
@@ -9,14 +10,18 @@ import { WebSocketAPI } from '../shared/services/WebSocketAPI.service';
 })
 export class LoginComponent  {
 
-
-  constructor(public auth : AuthService,public webSocketAPI : WebSocketAPI){
+  recipient : string ="";
+  constructor(public auth : AuthService,public webSocketAPI : WebSocketAPI, public directChatService : DirectChatService){
     console.log("inside login component ")
-  
+
     this.webSocketAPI._connect();
+
+    this.directChatService.getVar().subscribe((data) => {
+      console.log("updated to " + data);
+      this.recipient=data;
+    } );
   }
   conversation;
-
   sendMessage(message){
     this.webSocketAPI._send(message);
   }

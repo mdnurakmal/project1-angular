@@ -1,7 +1,7 @@
 <div id="sidebar"  [ngClass]="{'show' : visible}">
   <div id="row1">
     <div id="sidebarHeader">
-        <input (click)="close($event)" type="image" src="../../assets/images/backarrow.svg" />
+        <input (click)="closeNewChat()" type="image" src="../../assets/images/backarrow.svg" />
         <h3 id="text">New Chat</h3>
         
     </div>
@@ -10,24 +10,24 @@
         <input
           [(ngModel)]="searchText"
           type="text"
-          placeholder="Search or start the new chat"
+          placeholder="Enter recipient email"
         />
   </div>
 
   <div id="sidebarContent">
-    <div class="conversation">
+    <div class="conversation"    (click)="newChat()">
     <div class="picture">
       <img src="../../assets/images/newchat.svg" />
     </div>
     <div class="content">
       <div class="conversationHeader">
-        <div class="name">12345678</div>
+        <div class="name">New Chat</div>
       </div>
       <div class="message">
       </div>
     </div>
   </div>
-  <div class="conversation">
+  <div class="conversation"    (click)="newGroup()">
     <div class="picture">
       <img src="../../assets/images/newgroup.svg" />
     </div>
