@@ -3,15 +3,18 @@ import * as SockJS from 'sockjs-client';
 import { Injectable } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { User } from '@auth0/auth0-spa-js';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
   })
 export class WebSocketAPI {
-    webSocketEndPoint: string = 'http://localhost:8080/ws-chat';
+    webSocketEndPoint: string = environment.wsEndpoint;
     topic: string = "/topic/group";
     stompClient: any;
     user: User;
+
+
     receiver: string = "helllo";
     constructor(public auth : AuthService){
         this.auth.user$.subscribe(val =>{
@@ -48,17 +51,11 @@ export class WebSocketAPI {
         }, 5000);
     }
 
-    
-
-      
-
  /**
   * Send message to sever via web socket
   * @param {*} message 
   */
     _send(message) {
-
-
         this.stompClient.send("/app/sendMessage", {}, JSON.stringify(message));
     }
 

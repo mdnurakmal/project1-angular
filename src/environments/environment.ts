@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  wsEndpoint: 'ws://localhost:8080/ws-chat11',
+  //wsEndpoint: 'http://localhost:8080/ws-chat',
+  wsEndpoint: 'WSENDPOINT',
   reconnectInterval: 2000
 };
 
