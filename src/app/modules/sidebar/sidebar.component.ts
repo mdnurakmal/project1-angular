@@ -13,19 +13,7 @@ import { NewchatComponent } from '../newchat/newchat.component';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss'],
-  animations: [
-    trigger('slideMenu', [
-      state('false', style({
-        transform: 'translateX(-250px)'
-      })),
-      state('true', style({
-        transform: 'translateX(0)'
-      })),
-      transition('true <=> false', animate('400ms ease-in-out'))
-    ],
-    )
-  ]
+  styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
   public visible : boolean = false;

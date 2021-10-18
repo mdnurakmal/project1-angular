@@ -19,7 +19,15 @@ export class AppComponent implements OnInit{
     {
       console.log(claims + " authorized ");
       this.loginService.setAuthorized(true);
+
     });
+
+    authService.user$.subscribe((user) => 
+    {
+      this.loginService.email=user.email;
+    });
+
+   
 
     authService.error$.subscribe((error) => console.log(error));
   }

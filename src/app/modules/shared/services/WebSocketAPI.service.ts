@@ -59,14 +59,7 @@ export class WebSocketAPI {
     _send(message) {
 
 
-        var courseList =
-        {
-          sender: this.user.name,
-          receiver: this.receiver,
-          content: message
-        };
-
-        this.stompClient.send("/app/sendMessage", {}, JSON.stringify(courseList));
+        this.stompClient.send("/app/sendMessage", {}, JSON.stringify(message));
     }
 
     onMessageReceived(message) {

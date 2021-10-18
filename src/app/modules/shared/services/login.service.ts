@@ -8,6 +8,8 @@ import { Route, Router } from '@angular/router';
 export class LoginService {
   public authorized$: Observable<boolean>;
   private authorizedSource: BehaviorSubject<boolean>;
+
+  public email : string;
   constructor(private router: Router) {
     this.authorizedSource = new BehaviorSubject<boolean>(false);
     this.authorized$ = this.authorizedSource.asObservable();
@@ -23,11 +25,6 @@ export class LoginService {
     if (previous === this.authorizedSource.value) {
       return;
     }
-
-    console.log("hello here");
-    //const i = this.router.config.findIndex(x => x.path === 'chat');
-    //this.router.config.splice(i, 1);
-
 
     this.printpath('', this.router.config);
 

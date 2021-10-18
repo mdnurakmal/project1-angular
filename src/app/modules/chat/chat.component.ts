@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DirectChatService } from '../shared/services/directChat.service';
+import { LoginService } from '../shared/services/login.service';
 
 import { WebSocketAPI } from '../shared/services/WebSocketAPI.service';
 
@@ -14,9 +15,8 @@ export class ChatComponent implements OnInit {
   emojiPickerVisible;
   message = '';
   receiver ='';
-  constructor(public webSocketAPI : WebSocketAPI,public directChatService : DirectChatService){
+  constructor(public webSocketAPI : WebSocketAPI,public directChatService : DirectChatService,public loginService : LoginService){
     this.directChatService.getVar().subscribe((data) => {
-      console.log(data);
       this.receiver=data;
     } );
   }
@@ -27,14 +27,27 @@ export class ChatComponent implements OnInit {
     let value = event.target.value.trim();
     this.message = '';
     if (value.length < 1) return false;
-    this.webSocketAPI._send(value);
-    this.conversation.latestMessage = value;
-    this.conversation.messages.unshift({
-      id: 1,
-      body: value,
-      time: '10:21',
-      me: true,
-    });
+
+    var message = 
+    {
+        "sender": this.loginService.email,
+        "receiver": this.receiver,
+        "content":value
+    };
+
+
+
+    this.webSocketAPI._send(message);
+
+
+
+    // this.conversation.latestMessage = value;
+    // this.conversation.messages.unshift({
+    //   id: 1,
+    //   body: value,
+    //   time: '10:21',
+    //   me: true,
+    // });
   }
 
   emojiClicked(event) {

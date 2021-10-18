@@ -12,12 +12,10 @@ export class LoginComponent  {
 
   recipient : string ="";
   constructor(public auth : AuthService,public webSocketAPI : WebSocketAPI, public directChatService : DirectChatService){
-    console.log("inside login component ")
 
     this.webSocketAPI._connect();
 
     this.directChatService.getVar().subscribe((data) => {
-      console.log("updated to " + data);
       this.recipient=data;
     } );
   }
