@@ -1,11 +1,23 @@
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
+import { Injectable } from '@angular/core';
+import { AuthService } from '@auth0/auth0-angular';
+import { User } from '@auth0/auth0-spa-js';
 
+@Injectable({
+    providedIn: 'root'
+  })
 export class WebSocketAPI {
     webSocketEndPoint: string = 'http://localhost:8080/ws-chat';
-    topic: string = "/topic/greetings";
+    topic: string = "/topic/group";
     stompClient: any;
-    constructor(){
+    user: User;
+    receiver: string = "helllo";
+    constructor(public auth : AuthService){
+        this.auth.user$.subscribe(val =>{
+            console.log(val);
+            this.user = val;
+        });
     }
 
     _connect() {
@@ -36,13 +48,25 @@ export class WebSocketAPI {
         }, 5000);
     }
 
+    
+
+      
+
  /**
   * Send message to sever via web socket
   * @param {*} message 
   */
     _send(message) {
-        console.log("calling logout api via web socket");
-        this.stompClient.send("/app/hello", {}, JSON.stringify(message));
+
+
+        var courseList =
+        {
+          sender: this.user.name,
+          receiver: this.receiver,
+          content: message
+        };
+
+        this.stompClient.send("/app/sendMessage", {}, JSON.stringify(courseList));
     }
 
     onMessageReceived(message) {

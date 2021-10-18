@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
+
+import { WebSocketAPI } from '../shared/services/WebSocketAPI.service';
 
 @Component({
   selector: 'app-chat',
@@ -11,7 +12,8 @@ export class ChatComponent implements OnInit {
   @Output() onSubmit: EventEmitter<any> = new EventEmitter();
   emojiPickerVisible;
   message = '';
-  constructor(public auth : AuthService){
+  receiver ='';
+  constructor(public webSocketAPI : WebSocketAPI){
 
   }
 
@@ -21,6 +23,7 @@ export class ChatComponent implements OnInit {
     let value = event.target.value.trim();
     this.message = '';
     if (value.length < 1) return false;
+    this.webSocketAPI._send(value);
     this.conversation.latestMessage = value;
     this.conversation.messages.unshift({
       id: 1,
