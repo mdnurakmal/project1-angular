@@ -1,4 +1,4 @@
-import { Component,HostBinding, Input, OnInit } from '@angular/core';
+import { Component,EventEmitter,HostBinding, Input, OnInit, Output } from '@angular/core';
 import {
   trigger,
   state,
@@ -26,12 +26,18 @@ import {
 })
 export class NewchatComponent implements OnInit {
   @Input() visible : boolean;
-
+  @Output() visibleChange = new EventEmitter<boolean>();
+  searchText: string;
   constructor() { 
 
   }
 
   ngOnInit(): void {
+  }
+
+  close($event) {
+    this.visible = !this.visible;
+    this.visibleChange.emit(this.visible);
   }
 
 }
