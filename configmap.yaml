@@ -3,4 +3,7 @@ kind: ConfigMap
 metadata:
   name: angular-config
 data:
-  WSENDPOINT: demo.default.svc.cluster.local:8080
+  app.config.json: |-
+    {
+      "wsendpoint": demo.default.svc.cluster.local:8080
+    }
