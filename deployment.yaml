@@ -17,14 +17,18 @@ spec:
       labels:
         app: angular
     spec:
+      volumes:
+      - name: envread-volume
+        configMap:
+          name: angular-config
       containers:
         - image: mdnurakmal/project1-angular:latest
           name: project1-angular
           ports:
           - containerPort: 80
-          envFrom:
-            - configMapRef:
-                name: angular-config
+          volumeMounts:
+            - name: envread-volume
+              mountPath: /usr/share/nginx/html/assets/   
           resources: {}
 
 status: {}

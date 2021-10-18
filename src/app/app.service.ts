@@ -9,7 +9,7 @@ export class AppService {
 
   constructor(private http: HttpClient) { }
 
-  configUrl = `${environment.production?'envapp/':''}assets/app.config.json`;
+  configUrl = "assets/app.config.json";
   private configSettings: any = null;
 
   get settings() {
