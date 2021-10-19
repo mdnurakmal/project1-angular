@@ -53,17 +53,26 @@ metadata:
     kubernetes.io/ingress.class: "gce"
 spec:
   rules:
-  - host: mdnurakmal.com
+  - host: "mdnurakmal.com"
     http:
       paths:
-      - path: /
+      - pathType: Prefix
+        path: "/"
         backend:
-          serviceName: angular-service
-          servicePort: 80
-      - path: /ws-chat
+          service:
+            name: angular-service
+            port:
+              number: 80
+  - host: "mdnurakmal.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/ws-chat"
         backend:
-          serviceName: angular-service
-          servicePort: 8080
+          service:
+            name: angular-service
+            port:
+              number: 8080
 
 ---
 apiVersion: networking.gke.io/v1
