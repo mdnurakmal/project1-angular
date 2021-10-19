@@ -22,7 +22,7 @@ spec:
           name: project1-angular
           env:
           - name: AUTHSERVER_URL
-            value: demo.default.svc.cluster.local:8080
+            value: http://demo.default.svc.cluster.local:8080/ws-chat
           ports:
           - containerPort: 80
           resources: {}
