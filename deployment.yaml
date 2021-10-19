@@ -55,7 +55,7 @@ spec:
         path: "/ws-chat"
         backend:
           service:
-            name: demo
+            name: demo-service
             port:
               number: 8080
 
