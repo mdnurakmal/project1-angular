@@ -32,4 +32,4 @@ RUN chmod +x setup.sh
 # Expose port 80
 EXPOSE 80
 
-CMD ./start.sh
+CMD ./setup.sh
