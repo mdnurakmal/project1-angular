@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { User } from '@auth0/auth0-spa-js';
 import { environment } from 'src/environments/environment';
-import { AppService } from 'src/app/app.service';
 
 @Injectable({
     providedIn: 'root'
@@ -14,12 +13,11 @@ export class WebSocketAPI {
     topic: string = "/topic/group";
     stompClient: any;
     user: User;
-    appData: any;
 
     receiver: string = "helllo";
-    constructor(public auth : AuthService,private appService: AppService){
-        this.appData = this.appService.settings;
-        this.webSocketEndPoint = this.appData.wsendpoind;
+    constructor(public auth : AuthService){
+  
+        this.webSocketEndPoint = environment.wsEndpoint;
         this.auth.user$.subscribe(val =>{
             console.log(val);
             this.user = val;
