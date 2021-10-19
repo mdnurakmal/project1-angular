@@ -68,16 +68,16 @@ spec:
             name: angular-service
             port:
               number: 80
-  - host: "wschat.mdnurakmal.com"
+  - host: "mdnurakmal.com"
     http:
       paths:
       - pathType: Exact
-        path: "/"
+        path: "/ws-chat"
         backend:
           service:
             name: angular-service
             port:
-              number: 8080
+              number: 80
 
 ---
 apiVersion: networking.gke.io/v1
@@ -88,3 +88,16 @@ spec:
   domains:
     - mdnurakmal.com
             
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: websocket-service
+spec:
+  selector:
+    app: angular
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
