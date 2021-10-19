@@ -28,9 +28,9 @@ COPY nginx.conf /etc/nginx/conf.d/nginx.conf
 
 WORKDIR /usr/local/app
 COPY setup.sh .
-
+RUN chmod +x setup.sh
 # Expose port 80
 EXPOSE 80
 
-# ENTRYPOINT ["./setup.sh"]
-# CMD ["nginx"]
+ENTRYPOINT ["./setup.sh"]
+CMD ["nginx"]
