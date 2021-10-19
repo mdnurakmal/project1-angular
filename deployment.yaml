@@ -77,7 +77,7 @@ spec:
           service:
             name: angular-service
             port:
-              number: 80
+              number: 8080
 
 ---
 apiVersion: networking.gke.io/v1
