@@ -22,34 +22,11 @@ spec:
           name: project1-angular
           env:
           - name: AUTHSERVER_URL
-            value: http://35.223.210.36:8080/ws-chat
+            value: http://demo.default.svc.cluster.local:8080/ws-chat
           ports:
           - containerPort: 80
             name: nginx
-          - containerPort: 8080
-            name: websocket
           resources: {}
-
-status: {}
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: angular-service
-spec:
-  selector:
-    app: angular
-  type: LoadBalancer
-  ports:
-    - name: http
-      protocol: TCP
-      port: 80
-      targetPort: 80
-    - name: websocket
-      protocol: TCP
-      port: 8080
-      targetPort: 8080
-
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -64,7 +41,7 @@ spec:
   - host: "mdnurakmal.com"
     http:
       paths:
-      - pathType: Exact
+      - pathType: ImplementationSpecific
         path: "/"
         backend:
           service:
@@ -74,11 +51,11 @@ spec:
   - host: "mdnurakmal.com"
     http:
       paths:
-      - pathType: Exact
+      - pathType: ImplementationSpecific
         path: "/ws-chat"
         backend:
           service:
-            name: angular-service
+            name: demo
             port:
               number: 8080
 
