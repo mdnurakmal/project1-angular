@@ -17,18 +17,14 @@ spec:
       labels:
         app: angular
     spec:
-      volumes:
-      - name: envread-volume
-        configMap:
-          name: angular-config
       containers:
         - image: mdnurakmal/project1-angular:latest
           name: project1-angular
+          env:
+          - name: AUTHSERVER_URL
+            value: demo.default.svc.cluster.local:8080
           ports:
           - containerPort: 80
-          volumeMounts:
-            - name: envread-volume
-              mountPath: /usr/share/nginx/html/assets/   
           resources: {}
 
 status: {}

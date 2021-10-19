@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   //wsEndpoint: 'http://localhost:8080/ws-chat',
-  wsEndpoint: 'WSENDPOINT',
+  wsEndpoint: 'REPLACED_BY_BUILD_SCRIPT_AUTHSERVER_URL',
   reconnectInterval: 2000
 };
 
