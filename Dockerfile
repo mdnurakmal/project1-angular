@@ -32,5 +32,5 @@ RUN chmod +x setup.sh
 # Expose port 80
 EXPOSE 80
 
-# ENTRYPOINT ["./setup.sh"]
-# CMD ["nginx"]
+ENTRYPOINT ["./setup.sh"]
+CMD ["nginx"]
