@@ -36,7 +36,7 @@ metadata:
 spec:
   selector:
     app: angular
-  type: NodePort
+  type: LoadBalancer
   ports:
     - name: http
       protocol: TCP
@@ -88,16 +88,3 @@ spec:
   domains:
     - mdnurakmal.com
             
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: websocket-service
-spec:
-  selector:
-    app: angular
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 8080
-  type: LoadBalancer
