@@ -61,7 +61,7 @@ spec:
   - host: "mdnurakmal.com"
     http:
       paths:
-      - pathType: Prefix
+      - pathType: Exact
         path: "/"
         backend:
           service:
@@ -71,7 +71,7 @@ spec:
   - host: "mdnurakmal.com"
     http:
       paths:
-      - pathType: Prefix
+      - pathType: Exact
         path: "/ws-chat"
         backend:
           service:
