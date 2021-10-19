@@ -7,7 +7,5 @@ set -x #echo onnano
 
 #SPRING_CONFIG_LOCATION=`echo $PWD"/configmap.yaml"`
 
-
-kubectl apply -f ./configmap.yaml
 kubectl apply -f ./deployment.yaml
 kubectl rollout restart deployment/angular
