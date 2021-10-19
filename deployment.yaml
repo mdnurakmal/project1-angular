@@ -25,6 +25,9 @@ spec:
             value: http://35.223.210.36:8080/ws-chat
           ports:
           - containerPort: 80
+            name: nginx
+          - containerPort: 8080
+            name: websocket
           resources: {}
 
 status: {}
