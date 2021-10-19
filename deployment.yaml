@@ -22,7 +22,7 @@ spec:
           name: project1-angular
           env:
           - name: AUTHSERVER_URL
-            value: https://mdnurakmal.com/ws-chat
+            value: http://http://35.223.210.36:8080//ws-chat
           ports:
           - containerPort: 80
           resources: {}
