@@ -52,11 +52,18 @@ metadata:
     networking.gke.io/managed-certificates: managed-cert
     kubernetes.io/ingress.class: "gce"
 spec:
-  defaultBackend:
-    service:
-      name: angular-service
-      port:
-        number: 80
+  rules:
+  - host: mdnurakmal.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: angular-service
+          servicePort: 80
+      - path: /ws-chat
+        backend:
+          serviceName: angular-service
+          servicePort: 8080
 
 ---
 apiVersion: networking.gke.io/v1
