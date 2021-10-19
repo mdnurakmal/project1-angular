@@ -22,7 +22,7 @@ spec:
           name: project1-angular
           env:
           - name: AUTHSERVER_URL
-            value: https://mdnurakmal.com:80/ws-chat
+            value: https://mdnurakmal.com/ws-chat
           ports:
           - containerPort: 80
           resources: {}
@@ -68,11 +68,11 @@ spec:
             name: angular-service
             port:
               number: 80
-  - host: "mdnurakmal.com"
+  - host: "wschat.mdnurakmal.com"
     http:
       paths:
       - pathType: Exact
-        path: "/ws-chat"
+        path: "/"
         backend:
           service:
             name: angular-service
