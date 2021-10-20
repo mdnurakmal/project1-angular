@@ -50,19 +50,12 @@ metadata:
     kubernetes.io/ingress.global-static-ip-name: angular-ip
     networking.gke.io/managed-certificates: managed-cert
     kubernetes.io/ingress.class: "gce"
-    kubernetes.io/ingress.allow-http: "false"
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
-  rules:
-  - http:
-      paths:
-      - path: /*
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: angular-service
-            port:
-              number: 80
+  defaultBackend:
+    service:
+      name: angular-service
+      port:
+        number: 80
 
 
 ---
