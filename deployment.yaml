@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
     app: angular
   name: angular
@@ -10,10 +9,8 @@ spec:
   selector:
     matchLabels:
       app: angular
-  strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: angular
     spec:
@@ -26,8 +23,8 @@ spec:
           ports:
           - containerPort: 80
             name: nginx
-          resources: {}
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -40,7 +37,7 @@ spec:
   type: NodePort
   ports:
     - name: my-https-port
-      port: 443
+      port: 80
       targetPort: 80
 
 
@@ -56,11 +53,6 @@ metadata:
     kubernetes.io/ingress.allow-http: "false"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
-  defaultBackend:
-    service:
-      name: angular-service
-      port:
-        number: 443
   rules:
   - http:
       paths:
@@ -70,7 +62,7 @@ spec:
           service:
             name: angular-service
             port:
-              number: 443
+              number: 80
 
 
 ---
