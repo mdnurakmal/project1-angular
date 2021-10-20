@@ -57,8 +57,7 @@ spec:
   - host: "mdnurakmal.com"
     http:
       paths:
-      - pathType: ImplementationSpecific
-        path: /*
+      - path: /*
         backend:
           service:
             name: angular-service
@@ -67,8 +66,7 @@ spec:
   - host: "mdnurakmal.com"
     http:
       paths:
-      - pathType: ImplementationSpecific
-        path: /ws-chat
+      - path: /ws-chat
         backend:
           service:
             name: demo-service
