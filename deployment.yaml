@@ -41,7 +41,7 @@ spec:
   ports:
     - name: my-https-port
       port: 443
-      targetPort: nginx
+      targetPort: 80
 
 
 ---
