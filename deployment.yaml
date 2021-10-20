@@ -60,16 +60,7 @@ spec:
             name: angular-service
             port:
               number: 80
-  - host: "mdnurakmal.com"
-    http:
-      paths:
-      - pathType: ImplementationSpecific
-        path: "/ws-chat"
-        backend:
-          service:
-            name: demo-service
-            port:
-              number: 8080
+
 
 
 ---
