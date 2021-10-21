@@ -34,14 +34,17 @@ export class WebSocketAPI {
 
 
     _subscribeTopic() {
-        if (this.currentSubscription!==null) {
+        if (this.currentSubscription) {
+            console.log("currently subscribed to something")
             this.currentSubscription.unsubscribe(); 
         }
 
         if (this.stompClient.status === 'CONNECTED') {
+            console.log("client is currently connected");
             const _this = this;
-            this.currentSubscription = _this.stompClient.subscribe(this.user +"_"+this.directChat.recipient, function (sdkEvent) {
+            this.currentSubscription = _this.stompClient.subscribe("/"+this.user +"_"+this.directChat.recipient, function (sdkEvent) {
                 _this.onMessageReceived(sdkEvent);
+                console.log("subscribing to : " + "/"+this.user +"_"+this.directChat.recipient);
             });
         }
     }
