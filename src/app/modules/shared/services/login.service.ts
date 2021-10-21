@@ -12,7 +12,7 @@ export class LoginService{
   private authorizedSource: BehaviorSubject<boolean>;
   private websocketservice:WebSocketAPI;
   public email : string;
-  constructor(private router: Router,public auth : AuthService, public injector : Injector) {
+  constructor(private router: Router,public auth : AuthService, private injector : Injector) {
  
     this.authorizedSource = new BehaviorSubject<boolean>(false);
     this.authorized$ = this.authorizedSource.asObservable();
@@ -36,9 +36,9 @@ export class LoginService{
 
   }
 
-  public reconnect()
+  public reconnect(injector: Injector)
   {
-    this.websocketservice = new WebSocketAPI(this.auth,this.injector);
+    this.websocketservice = new WebSocketAPI(this.auth,injector);
     this.websocketservice._connect();
   }
 

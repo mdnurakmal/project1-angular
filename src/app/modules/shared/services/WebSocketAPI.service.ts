@@ -18,7 +18,7 @@ export class WebSocketAPI {
     private loginservice:LoginService;
 
     receiver: string = "helllo";
-    constructor(public auth : AuthService, public injector:Injector){
+    constructor(public auth : AuthService, private injector:Injector){
 
         this.webSocketEndPoint = environment.wsEndpoint;
         this.auth.user$.subscribe(val =>{
@@ -55,7 +55,7 @@ export class WebSocketAPI {
         setTimeout(() => {
 
             this.loginservice = this.injector.get(LoginService);
-            this.loginservice.reconnect();
+            this.loginservice.reconnect(this.injector);
         }, 5000);
     }
 
