@@ -29,6 +29,7 @@ export class WebSocketAPI {
             this.user = val;
         });
 
+        this._connect = this._connect.bind(this);
     }
 
 
@@ -53,7 +54,9 @@ export class WebSocketAPI {
         this.stompClient = Stomp.over(ws);
         const _this = this;
         _this.stompClient.connect({}, function (frame) {
-
+            // _this.stompClient.subscribe(_this.topic, function (sdkEvent) {
+            //     _this.onMessageReceived(sdkEvent);
+            // });
             //_this.stompClient.reconnect_delay = 2000;
         }, function (error) {
             console.log("errorCallBack -> " + error)
