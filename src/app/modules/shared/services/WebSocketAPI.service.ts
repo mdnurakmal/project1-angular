@@ -44,7 +44,7 @@ export class WebSocketAPI {
 
             
             //_this.stompClient.reconnect_delay = 2000;
-        }, this.errorCallBack);
+        }, _this.errorCallBack);
 
         
     };
