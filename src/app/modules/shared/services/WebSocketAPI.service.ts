@@ -34,6 +34,7 @@ export class WebSocketAPI {
 
 
     _subscribeTopic() {
+        console.log("trying to subscribe to topic");
         if (this.currentSubscription) {
             console.log("currently subscribed to something")
             this.currentSubscription.unsubscribe(); 
@@ -47,6 +48,8 @@ export class WebSocketAPI {
                 console.log("subscribing to : " + "/"+this.user +"_"+this.directChat.recipient);
             });
         }
+
+        console.log(this.stompClient.status);
     }
 
     _connect() {
