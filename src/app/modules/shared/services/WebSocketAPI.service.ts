@@ -6,7 +6,6 @@ import { User } from '@auth0/auth0-spa-js';
 import { environment } from 'src/environments/environment';
 import { LoginService } from './login.service';
 
-@Injectable()
 export class WebSocketAPI {
     webSocketEndPoint: string;
     topic: string = "/topic/group";
@@ -14,7 +13,7 @@ export class WebSocketAPI {
     user: User;
 
     receiver: string = "helllo";
-    constructor(public auth : AuthService,public login:LoginService){
+    constructor(public auth : AuthService, public loginService : LoginService){
   
         this.webSocketEndPoint = environment.wsEndpoint;
         this.auth.user$.subscribe(val =>{
@@ -49,7 +48,7 @@ export class WebSocketAPI {
     errorCallBack(error) {
         console.log("errorCallBack -> " + error)
         setTimeout(() => {
-            this.login.reconnect();
+            this.loginService.reconnect();
         }, 5000);
     }
 
