@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { LoginRoutingModule } from './login-routing.module';
 import { NewchatComponent } from '../newchat/newchat.component';
+import { WebSocketAPI } from '../shared/services/WebSocketAPI.service';
 
 @NgModule({
   declarations: [SidebarComponent, ChatComponent, LoginComponent,NewchatComponent],
@@ -16,7 +17,8 @@ import { NewchatComponent } from '../newchat/newchat.component';
     LoginRoutingModule,
     FormsModule,
     PickerModule
-  ]
+  ],
+  providers: [WebSocketAPI]
 })
 
 
