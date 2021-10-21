@@ -5,9 +5,9 @@ import { AuthService } from '@auth0/auth0-angular';
 import { User } from '@auth0/auth0-spa-js';
 import { environment } from 'src/environments/environment';
 import { LoginService } from './login.service';
-import {  Injector } from '@angular/core';
+import {  Injectable, Injector } from '@angular/core';
 
-
+@Injectable()
 export class WebSocketAPI {
     webSocketEndPoint: string;
     topic: string = "/topic/group";
