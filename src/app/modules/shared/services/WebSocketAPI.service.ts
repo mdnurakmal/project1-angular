@@ -59,13 +59,13 @@ export class WebSocketAPI {
     // on error, schedule a reconnection attempt
     errorCallBack(error) {
         console.log("errorCallBack -> " + error)
-        const _this = this;
-        setTimeout(() => {
-            console.log("Here");
-            _this._connect();
-
-            console.log("Hereafter");
-        }, 5000);
+        this._connect();
+        console.log("finished");
+        // setTimeout(() => {
+    
+           
+        //     console.log("Hereafter");
+        // }, 5000);
     }
 
  /**
