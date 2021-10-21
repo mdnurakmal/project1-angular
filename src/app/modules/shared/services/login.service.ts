@@ -38,7 +38,7 @@ export class LoginService{
 
   public reconnect()
   {
-    this.websocketservice = this.injector.get(WebSocketAPI);
+    this.websocketservice = new WebSocketAPI(this.auth,this.injector);
     this.websocketservice._connect();
   }
 
