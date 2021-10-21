@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 
 import { AuthModule } from '@auth0/auth0-angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { WebSocketAPI } from './modules/shared/services/WebSocketAPI.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,5 +24,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     }),
   ],
   bootstrap: [AppComponent],
+  providers: [WebSocketAPI]
 })
 export class AppModule {}
