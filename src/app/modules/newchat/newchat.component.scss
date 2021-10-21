@@ -58,10 +58,12 @@
       }
 
       #sidebarContent {
-   
+        display:flex;
+        flex-direction: column;
         .conversation {
+            display:flex;
             background-color: white;
-            height: 67px;
+            flex-basis: 73px;
             display: flex;
             padding-right: 5px;
             transition: all 0.4s ease-in-out;
@@ -83,7 +85,7 @@
             }
             .content {
               border-bottom: 1px solid #f2f2f2;
-              flex-grow: 1;
+
               padding: 13px 0px;
               padding-right: 10px;
               padding-top:  25px;
@@ -101,19 +103,23 @@
 
             }
           }
-          .filler {
-            background-color: white;
-            height: 500px;
-            display: flex;
-            padding-right: 5px;
- 
-          }
+
         }
     }
   
 
   }
   
+  .filler {
+    position: relative;
+    display: block;
+    min-height: 100vh;
+    flex-grow:1;
+    flex-direction: column;
+    background-color:white;
+    padding-right: 5px;
+
+  }
   
   .image-cropper {
     position: relative;
