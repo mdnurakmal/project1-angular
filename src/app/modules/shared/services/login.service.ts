@@ -20,6 +20,7 @@ export class LoginService {
     this.authorizedSource = new BehaviorSubject<boolean>(false);
     this.authorized$ = this.authorizedSource.asObservable();
 
+    WebSocketAPI._instanceWebSocketAPI._connect();
   }
 
   public isAuthorized(): boolean {
