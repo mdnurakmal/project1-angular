@@ -23,7 +23,6 @@ import { WebSocketAPI } from './modules/shared/services/WebSocketAPI.service';
       clientId: '8m0HtJPNOK5TLdjyZFrAtMpP0F6RaeD0',
     }),
   ],
-  bootstrap: [AppComponent],
-  providers: [WebSocketAPI]
+  bootstrap: [AppComponent]
 })
 export class AppModule {}
