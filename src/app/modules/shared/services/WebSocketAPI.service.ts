@@ -26,6 +26,8 @@ export class WebSocketAPI {
             console.log(val);
             this.user = val;
         });
+
+        this._connect = this._connect.bind(this);
     }
 
     _connect() {
