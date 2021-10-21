@@ -37,10 +37,13 @@ export class WebSocketAPI {
             _this.stompClient.subscribe(_this.topic, function (sdkEvent) {
                 _this.onMessageReceived(sdkEvent);
             });
+            
 
             
             //_this.stompClient.reconnect_delay = 2000;
         }, this.errorCallBack);
+
+        
     };
 
     _disconnect() {
@@ -53,9 +56,10 @@ export class WebSocketAPI {
     // on error, schedule a reconnection attempt
     errorCallBack(error) {
         console.log("errorCallBack -> " + error)
+        const _this = this;
         setTimeout(() => {
             console.log("Here");
-            new WebSocketAPI(this.auth);
+            _this._connect();
 
             console.log("Hereafter");
         }, 5000);
