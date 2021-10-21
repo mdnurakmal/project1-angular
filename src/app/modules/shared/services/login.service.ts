@@ -11,14 +11,15 @@ export class LoginService {
   public authorized$: Observable<boolean>;
   private authorizedSource: BehaviorSubject<boolean>;
 
-  static websockerapi: WebSocketAPI;
+  public static _instance : LoginService;
 
   public email : string;
-  constructor(private router: Router, private websockerapi: WebSocketAPI,public auth : AuthService) {
+  constructor(private router: Router,public auth : AuthService) {
+    LoginService._instance=this;
+
     this.authorizedSource = new BehaviorSubject<boolean>(false);
     this.authorized$ = this.authorizedSource.asObservable();
 
-    this.websockerapi =  new WebSocketAPI(this.auth);
   }
 
   public isAuthorized(): boolean {
@@ -38,8 +39,8 @@ export class LoginService {
 
   public reconnect()
   {
-      this.websockerapi = new WebSocketAPI(this.auth);
-      this.websockerapi._connect();
+    WebSocketAPI._instanceWebSocketAPI = new WebSocketAPI(this.auth);
+    WebSocketAPI._instanceWebSocketAPI._connect();
   }
 
   public printpath(parent: String, config: Route[]) {

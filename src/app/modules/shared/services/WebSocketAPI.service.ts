@@ -5,16 +5,22 @@ import { AuthService } from '@auth0/auth0-angular';
 import { User } from '@auth0/auth0-spa-js';
 import { environment } from 'src/environments/environment';
 import { LoginService } from './login.service';
+import { Injectable } from '@angular/core';
 
+@Injectable({
+    providedIn: 'root'
+  })
 export class WebSocketAPI {
     webSocketEndPoint: string;
     topic: string = "/topic/group";
     stompClient: any;
     user: User;
 
+    public static _instanceWebSocketAPI : WebSocketAPI;
+
     receiver: string = "helllo";
     constructor(public auth : AuthService){
-  
+        WebSocketAPI._instanceWebSocketAPI=this;
         this.webSocketEndPoint = environment.wsEndpoint;
         this.auth.user$.subscribe(val =>{
             console.log(val);
@@ -48,7 +54,7 @@ export class WebSocketAPI {
     errorCallBack(error) {
         console.log("errorCallBack -> " + error)
         setTimeout(() => {
-           LoginService.websockerapi = new WebSocketAPI(this.auth);
+           LoginService._instance.reconnect();
         }, 5000);
     }
 
