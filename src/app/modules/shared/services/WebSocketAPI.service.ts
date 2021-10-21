@@ -28,6 +28,7 @@ export class WebSocketAPI {
         });
 
         this._connect = this._connect.bind(this);
+        this.errorCallBack = this.errorCallBack.bind(this);
     }
 
     _connect() {
@@ -43,7 +44,7 @@ export class WebSocketAPI {
 
             
             //_this.stompClient.reconnect_delay = 2000;
-        }, () => this.errorCallBack);
+        }, this.errorCallBack);
 
         
     };
