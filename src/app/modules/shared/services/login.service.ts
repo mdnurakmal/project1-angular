@@ -16,7 +16,8 @@ export class LoginService{
  
     this.authorizedSource = new BehaviorSubject<boolean>(false);
     this.authorized$ = this.authorizedSource.asObservable();
-
+    this.websocketservice = this.injector.get(WebSocketAPI);
+    this.websocketservice._connect();
   }
 
 
