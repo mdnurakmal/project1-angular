@@ -19,7 +19,7 @@ export class WebSocketAPI {
 
     receiver: string = "helllo";
     constructor(public auth : AuthService){
-
+        console.log("Init websocket api");
         this.webSocketEndPoint = environment.wsEndpoint;
         this._connect();
         this.auth.user$.subscribe(val =>{

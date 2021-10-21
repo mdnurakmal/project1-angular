@@ -13,7 +13,7 @@ export class LoginService{
   
   public email : string;
   constructor(private router: Router,public auth : AuthService) {
- 
+    console.log("Init login service ");
     this.authorizedSource = new BehaviorSubject<boolean>(false);
     this.authorized$ = this.authorizedSource.asObservable();
 
