@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable, Injector, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Route, Router } from '@angular/router';
 import { WebSocketAPI } from './WebSocketAPI.service';
@@ -7,24 +7,18 @@ import { AuthService } from '@auth0/auth0-angular';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService implements OnInit{
+export class LoginService{
   public authorized$: Observable<boolean>;
   private authorizedSource: BehaviorSubject<boolean>;
-
-  public static _instance : LoginService;
-
+  private websocketservice:WebSocketAPI;
   public email : string;
-  constructor(private router: Router,public auth : AuthService) {
-    LoginService._instance=this;
-
+  constructor(private router: Router,public auth : AuthService, public injector : Injector) {
+ 
     this.authorizedSource = new BehaviorSubject<boolean>(false);
     this.authorized$ = this.authorizedSource.asObservable();
 
-   
   }
-  ngOnInit(): void {
-    WebSocketAPI._instanceWebSocketAPI._connect();
-  }
+
 
   public isAuthorized(): boolean {
     return this.authorizedSource.value;
@@ -43,8 +37,8 @@ export class LoginService implements OnInit{
 
   public reconnect()
   {
-    WebSocketAPI._instanceWebSocketAPI = new WebSocketAPI(this.auth);
-    WebSocketAPI._instanceWebSocketAPI._connect();
+    this.websocketservice = this.injector.get(WebSocketAPI);
+    this.websocketservice._connect();
   }
 
   public printpath(parent: String, config: Route[]) {

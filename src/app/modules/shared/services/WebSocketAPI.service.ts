@@ -5,7 +5,7 @@ import { AuthService } from '@auth0/auth0-angular';
 import { User } from '@auth0/auth0-spa-js';
 import { environment } from 'src/environments/environment';
 import { LoginService } from './login.service';
-import { Injectable } from '@angular/core';
+import { Injectable, INJECTOR, Injector } from '@angular/core';
 
 @Injectable({
     providedIn: 'root'
@@ -15,12 +15,11 @@ export class WebSocketAPI {
     topic: string = "/topic/group";
     stompClient: any;
     user: User;
-
-    public static _instanceWebSocketAPI : WebSocketAPI;
+    private loginservice:LoginService;
 
     receiver: string = "helllo";
-    constructor(public auth : AuthService){
-        WebSocketAPI._instanceWebSocketAPI=this;
+    constructor(public auth : AuthService, public injector:Injector){
+
         this.webSocketEndPoint = environment.wsEndpoint;
         this.auth.user$.subscribe(val =>{
             console.log(val);
@@ -54,7 +53,9 @@ export class WebSocketAPI {
     errorCallBack(error) {
         console.log("errorCallBack -> " + error)
         setTimeout(() => {
-           LoginService._instance.reconnect();
+
+            this.loginservice = this.injector.get(LoginService);
+            this.loginservice.reconnect();
         }, 5000);
     }
 
