@@ -6,6 +6,7 @@ import { User } from '@auth0/auth0-spa-js';
 import { environment } from 'src/environments/environment';
 import { LoginService } from './login.service';
 import {  Injectable, Injector } from '@angular/core';
+import { DirectChatService } from './directChat.service';
 
 @Injectable({
     providedIn: 'root'
@@ -14,11 +15,12 @@ export class WebSocketAPI {
     webSocketEndPoint: string;
     topic: string = "/topic/group";
     stompClient: any;
+    currentSubscription: any;
     user: User;
     private loginservice:LoginService;
 
     receiver: string = "helllo";
-    constructor(public auth : AuthService){
+    constructor(public auth : AuthService,public directChat : DirectChatService){
         console.log("Init websocket api");
         this.webSocketEndPoint = environment.wsEndpoint;
         this._connect();
@@ -27,22 +29,31 @@ export class WebSocketAPI {
             this.user = val;
         });
 
-        this._connect = this._connect.bind(this);
-        this.errorCallBack = this.errorCallBack.bind(this);
+    }
+
+
+    _subscribeTopic() {
+        if (this.currentSubscription!==null) {
+            this.currentSubscription.unsubscribe(); 
+        }
+
+        if (this.stompClient.status === 'CONNECTED') {
+            const _this = this;
+            this.currentSubscription = _this.stompClient.subscribe(this.user +"_"+this.directChat.recipient, function (sdkEvent) {
+                _this.onMessageReceived(sdkEvent);
+            });
+        }
     }
 
     _connect() {
         console.log("Initialize WebSocket Connection");
+
         let ws = new SockJS(this.webSocketEndPoint);
+
         this.stompClient = Stomp.over(ws);
         const _this = this;
         _this.stompClient.connect({}, function (frame) {
-            _this.stompClient.subscribe(_this.topic, function (sdkEvent) {
-                _this.onMessageReceived(sdkEvent);
-            });
-            
 
-            
             //_this.stompClient.reconnect_delay = 2000;
         }, function (error) {
             console.log("errorCallBack -> " + error)

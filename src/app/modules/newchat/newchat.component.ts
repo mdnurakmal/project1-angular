@@ -8,6 +8,7 @@ import {
   // ...
 } from '@angular/animations';
 import { DirectChatService } from '../shared/services/directChat.service';
+import { WebSocketAPI } from '../shared/services/WebSocketAPI.service';
 
 @Component({
   selector: 'app-newchat',
@@ -20,7 +21,7 @@ export class NewchatComponent implements OnInit {
   @Output() recipientChange = new EventEmitter<string>();
   searchText: string;
   recipient: string;
-  constructor( public directChatService : DirectChatService) { 
+  constructor( public directChatService : DirectChatService,public websocket : WebSocketAPI) { 
     this.directChatService.getVar().subscribe((data) => {
       console.log(data);
     } );
@@ -37,6 +38,7 @@ export class NewchatComponent implements OnInit {
 
   newChat(){
    this.directChatService.insertData(this.searchText);
+   this.websocket._subscribeTopic();
    this.closeNewChat();
   }
 
