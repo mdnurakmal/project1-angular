@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Route, Router } from '@angular/router';
 import { WebSocketAPI } from './WebSocketAPI.service';
@@ -7,7 +7,7 @@ import { AuthService } from '@auth0/auth0-angular';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class LoginService implements OnInit{
   public authorized$: Observable<boolean>;
   private authorizedSource: BehaviorSubject<boolean>;
 
@@ -20,6 +20,9 @@ export class LoginService {
     this.authorizedSource = new BehaviorSubject<boolean>(false);
     this.authorized$ = this.authorizedSource.asObservable();
 
+   
+  }
+  ngOnInit(): void {
     WebSocketAPI._instanceWebSocketAPI._connect();
   }
 
