@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Route, Router } from '@angular/router';
+import { WebSocketAPI } from './WebSocketAPI.service';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,7 @@ export class LoginService {
   private authorizedSource: BehaviorSubject<boolean>;
 
   public email : string;
-  constructor(private router: Router) {
+  constructor(private router: Router, private websockerapi: WebSocketAPI,public auth : AuthService) {
     this.authorizedSource = new BehaviorSubject<boolean>(false);
     this.authorized$ = this.authorizedSource.asObservable();
   }
@@ -28,6 +30,12 @@ export class LoginService {
 
     this.printpath('', this.router.config);
 
+  }
+
+  public reconnect()
+  {
+      this.websockerapi = new WebSocketAPI(this.auth,this);
+      this.websockerapi._connect();
   }
 
   public printpath(parent: String, config: Route[]) {

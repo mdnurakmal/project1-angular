@@ -11,18 +11,16 @@ import { WebSocketAPI } from '../shared/services/WebSocketAPI.service';
 export class LoginComponent  {
 
   recipient : string ="";
-  constructor(public auth : AuthService,public webSocketAPI : WebSocketAPI, public directChatService : DirectChatService){
-
-    this.webSocketAPI._connect();
+  constructor(public auth : AuthService, public directChatService : DirectChatService){
 
     this.directChatService.getVar().subscribe((data) => {
       this.recipient=data;
     } );
   }
   conversation;
-  sendMessage(message){
-    this.webSocketAPI._send(message);
-  }
+  // sendMessage(message){
+  //   this.webSocketAPI._send(message);
+  // }
 
   onConversationSelected(conversation){
     this.conversation = conversation;
