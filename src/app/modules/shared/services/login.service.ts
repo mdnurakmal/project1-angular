@@ -12,12 +12,11 @@ export class LoginService{
   private authorizedSource: BehaviorSubject<boolean>;
   
   public email : string;
-  constructor(private router: Router,public auth : AuthService, private webservice :WebSocketAPI) {
+  constructor(private router: Router,public auth : AuthService) {
  
     this.authorizedSource = new BehaviorSubject<boolean>(false);
     this.authorized$ = this.authorizedSource.asObservable();
 
-    this.webservice._connect();
   }
 
 
@@ -39,7 +38,7 @@ export class LoginService{
   public reconnect()
   {
     console.log("Reconnect");
-    this.webservice._connect();
+  
   }
 
   public printpath(parent: String, config: Route[]) {

@@ -7,7 +7,9 @@ import { environment } from 'src/environments/environment';
 import { LoginService } from './login.service';
 import {  Injectable, Injector } from '@angular/core';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+  })
 export class WebSocketAPI {
     webSocketEndPoint: string;
     topic: string = "/topic/group";
@@ -16,9 +18,10 @@ export class WebSocketAPI {
     private loginservice:LoginService;
 
     receiver: string = "helllo";
-    constructor(public auth : AuthService, private injector:Injector){
+    constructor(public auth : AuthService){
 
         this.webSocketEndPoint = environment.wsEndpoint;
+        this._connect();
         this.auth.user$.subscribe(val =>{
             console.log(val);
             this.user = val;
@@ -52,8 +55,8 @@ export class WebSocketAPI {
         console.log("errorCallBack -> " + error)
         setTimeout(() => {
             console.log("Here");
-            this.loginservice = this.injector.get(LoginService);
-            this.loginservice.reconnect();
+            new WebSocketAPI(this.auth);
+
             console.log("Hereafter");
         }, 5000);
     }
