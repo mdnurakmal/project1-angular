@@ -5,11 +5,9 @@ import { AuthService } from '@auth0/auth0-angular';
 import { User } from '@auth0/auth0-spa-js';
 import { environment } from 'src/environments/environment';
 import { LoginService } from './login.service';
-import { Injectable, INJECTOR, Injector } from '@angular/core';
+import {  Injector } from '@angular/core';
 
-@Injectable({
-    providedIn: 'root'
-  })
+
 export class WebSocketAPI {
     webSocketEndPoint: string;
     topic: string = "/topic/group";
@@ -53,9 +51,10 @@ export class WebSocketAPI {
     errorCallBack(error) {
         console.log("errorCallBack -> " + error)
         setTimeout(() => {
-
+            console.log("Here");
             this.loginservice = this.injector.get(LoginService);
-            this.loginservice.reconnect(this.injector);
+            this.loginservice.reconnect();
+            console.log("Hereafter");
         }, 5000);
     }
 

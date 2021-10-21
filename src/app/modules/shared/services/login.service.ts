@@ -10,14 +10,14 @@ import { AuthService } from '@auth0/auth0-angular';
 export class LoginService{
   public authorized$: Observable<boolean>;
   private authorizedSource: BehaviorSubject<boolean>;
-  private websocketservice:WebSocketAPI;
+  
   public email : string;
-  constructor(private router: Router,public auth : AuthService, private injector : Injector) {
+  constructor(private router: Router,public auth : AuthService, private webservice :WebSocketAPI) {
  
     this.authorizedSource = new BehaviorSubject<boolean>(false);
     this.authorized$ = this.authorizedSource.asObservable();
-    this.websocketservice = this.injector.get(WebSocketAPI);
-    this.websocketservice._connect();
+
+    this.webservice._connect();
   }
 
 
@@ -36,10 +36,10 @@ export class LoginService{
 
   }
 
-  public reconnect(injector: Injector)
+  public reconnect()
   {
-    this.websocketservice = new WebSocketAPI(this.auth,injector);
-    this.websocketservice._connect();
+    console.log("Reconnect");
+    this.webservice._connect();
   }
 
   public printpath(parent: String, config: Route[]) {
