@@ -1,6 +1,6 @@
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
-import { Injectable } from '@angular/core';
+
 import { AuthService } from '@auth0/auth0-angular';
 import { User } from '@auth0/auth0-spa-js';
 import { environment } from 'src/environments/environment';
@@ -13,7 +13,7 @@ export class WebSocketAPI {
     user: User;
 
     receiver: string = "helllo";
-    constructor(public auth : AuthService, public loginService : LoginService){
+    constructor(public auth : AuthService){
   
         this.webSocketEndPoint = environment.wsEndpoint;
         this.auth.user$.subscribe(val =>{
@@ -48,7 +48,7 @@ export class WebSocketAPI {
     errorCallBack(error) {
         console.log("errorCallBack -> " + error)
         setTimeout(() => {
-            this.loginService.reconnect();
+           LoginService.websockerapi = new WebSocketAPI(this.auth);
         }, 5000);
     }
 
