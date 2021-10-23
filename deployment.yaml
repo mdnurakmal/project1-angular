@@ -19,7 +19,7 @@ spec:
           name: project1-angular
           env:
           - name: AUTHSERVER_URL
-            value: wss://wschat.mdnurakmal.com/
+            value: http://mdnurakmal.com/wschat
           ports:
           - containerPort: 80
             name: nginx
