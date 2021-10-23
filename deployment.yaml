@@ -50,21 +50,17 @@ metadata:
     kubernetes.io/ingress.class: "gce"
 spec:
   rules:
-  - host: "mdnurakmal.com"
-    http:
+  - http:
       paths:
-      - pathType: ImplementationSpecific
-        path: "/*"
+      - path: /
+        pathType: ImplementationSpecific
         backend:
           service:
             name: angular-service
             port:
               number: 443
-  - host: "wschat.mdnurakmal.com"
-    http:
-      paths:
-      - pathType: ImplementationSpecific
-        path: "/*"
+      - path: /wschat
+        pathType: ImplementationSpecific
         backend:
           service:
             name: demo-service
