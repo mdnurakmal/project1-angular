@@ -70,6 +70,16 @@ spec:
             name: demo-service
             port:
               number: 8080
+  - host: "nginx.mdnurakmal.com"
+    http:
+      paths:
+      - pathType: ImplementationSpecific
+        path: "/*"
+        backend:
+          service:
+            name: nginx-reverse-proxy-service
+            port:
+              number: 8080
 
 
 
