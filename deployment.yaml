@@ -49,23 +49,22 @@ metadata:
     networking.gke.io/managed-certificates: managed-cert
     kubernetes.io/ingress.class: "gce"
 spec:
-  defaultBackend:
-    service:
-      name: angular-service
-      port:
-        number: 443
   rules:
-  - http:
+  - host: "mdnurakmal.com"
+    http:
       paths:
-      - path: /
-        pathType: ImplementationSpecific
+      - pathType: ImplementationSpecific
+        path: "/*"
         backend:
           service:
             name: angular-service
             port:
               number: 443
-      - path: /wschat
-        pathType: ImplementationSpecific
+  - host: "wschat.mdnurakmal.com"
+    http:
+      paths:
+      - pathType: ImplementationSpecific
+        path: "/*"
         backend:
           service:
             name: demo-service
