@@ -1,7 +1,7 @@
 import { Injectable, Injector, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Route, Router } from '@angular/router';
-import { WebSocketAPI } from './WebSocketAPI.service';
+
 import { AuthService } from '@auth0/auth0-angular';
 
 @Injectable({

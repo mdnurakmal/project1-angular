@@ -8,7 +8,9 @@ import { CommonModule } from '@angular/common';
 
 import { AuthModule } from '@auth0/auth0-angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { WebSocketAPI } from './modules/shared/services/WebSocketAPI.service';
+
+import { InjectableRxStompConfig, RxStompService, rxStompServiceFactory } from '@stomp/ng2-stompjs';
+import { myRxStompConfig } from './my-rx-stomp.config';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +24,17 @@ import { WebSocketAPI } from './modules/shared/services/WebSocketAPI.service';
       domain: 'dev-4srngy77.us.auth0.com',
       clientId: '8m0HtJPNOK5TLdjyZFrAtMpP0F6RaeD0',
     }),
+  ],
+  providers: [
+    {
+      provide: InjectableRxStompConfig,
+      useValue: myRxStompConfig,
+    },
+    {
+      provide: RxStompService,
+      useFactory: rxStompServiceFactory,
+      deps: [InjectableRxStompConfig],
+    }
   ],
   bootstrap: [AppComponent]
 })

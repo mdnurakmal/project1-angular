@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { DirectChatService } from '../shared/services/directChat.service';
-import { WebSocketAPI } from '../shared/services/WebSocketAPI.service';
 
 @Component({
   selector: 'app-login',

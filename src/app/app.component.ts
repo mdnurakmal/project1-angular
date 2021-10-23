@@ -3,7 +3,6 @@
 import { Component, OnInit  } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { LoginService } from './modules/shared/services/login.service';
-import { WebSocketAPI } from './modules/shared/services/WebSocketAPI.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +13,7 @@ export class AppComponent implements OnInit{
   title = 'app';
 
   public isTheManager: boolean;
-  constructor(private authService: AuthService,private loginService: LoginService,private websocketapi: WebSocketAPI) {
+  constructor(private authService: AuthService,private loginService: LoginService) {
     authService.idTokenClaims$.subscribe((claims) => 
     
     {

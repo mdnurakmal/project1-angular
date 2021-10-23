@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { RxStompService } from '@stomp/ng2-stompjs';
 import { DirectChatService } from '../shared/services/directChat.service';
 import { LoginService } from '../shared/services/login.service';
-
-import { WebSocketAPI } from '../shared/services/WebSocketAPI.service';
 
 @Component({
   selector: 'app-chat',
@@ -15,7 +14,7 @@ export class ChatComponent implements OnInit {
   emojiPickerVisible;
   message = '';
   receiver ='';
-  constructor(public webSocketAPI : WebSocketAPI,public directChatService : DirectChatService,public loginService : LoginService){
+  constructor(private rxStompService: RxStompService,public directChatService : DirectChatService,public loginService : LoginService){
     this.directChatService.getVar().subscribe((data) => {
       this.receiver=data;
     } );
@@ -23,23 +22,22 @@ export class ChatComponent implements OnInit {
 
   ngOnInit(): void {}
 
+
+
   submitMessage(event) {
     let value = event.target.value.trim();
     this.message = '';
     if (value.length < 1) return false;
 
-    var message = 
+    var content = 
     {
         "sender": this.loginService.email,
         "receiver": this.receiver,
         "content":value
     };
 
-
-
-    this.webSocketAPI._send(message);
-
-
+    const message = JSON.stringify(content);
+    this.rxStompService.publish({ destination: '/app/sendMessage', body: message });
 
     // this.conversation.latestMessage = value;
     // this.conversation.messages.unshift({

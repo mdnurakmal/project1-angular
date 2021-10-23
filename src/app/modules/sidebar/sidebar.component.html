@@ -29,7 +29,7 @@
       *ngFor="
         let conversation of !searchText ? conversations : filteredConversations
       "
-      (click)="conversationClicked.emit(conversation)"
+      (click)="startConversationWith(conversation.name )"
     >
       <div class="picture">
         <img src="../../assets/images/noPic.svg" />

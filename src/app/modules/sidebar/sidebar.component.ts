@@ -8,8 +8,7 @@ import {
 } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
-import { NewchatComponent } from '../newchat/newchat.component';
-
+import { DirectChatService } from '../shared/services/directChat.service';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -19,10 +18,13 @@ export class SidebarComponent implements OnInit {
   public visible : boolean = false;
   @Output() conversationClicked: EventEmitter<any> = new EventEmitter();
   
-  @ViewChild(NewchatComponent)
-  private newchatComponent: NewchatComponent;
-
   searchText: string;
+
+  constructor(public auth : AuthService, public directChat : DirectChatService){
+    this.visible=false;
+  }
+
+
   conversations = [
     {
       name: 'David',
@@ -207,9 +209,7 @@ export class SidebarComponent implements OnInit {
     });
   }
 
-  constructor(public auth : AuthService){
-    this.visible=false;
-  }
+
 
   ngOnInit(): void {
     console.log("init");
@@ -219,6 +219,9 @@ export class SidebarComponent implements OnInit {
     this.visible = !this.visible;
     console.log("hellooo from do something:" +  this.visible);
   }
-
+  
+  startConversationWith(name : string, $event) {
+    this.directChat.insertData(name);
+  }
 
 }

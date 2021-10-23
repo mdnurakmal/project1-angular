@@ -1,14 +1,9 @@
 import { Component,EventEmitter,HostBinding, HostListener, Input, OnInit, Output } from '@angular/core';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-  // ...
-} from '@angular/animations';
+import { RxStompService } from '@stomp/ng2-stompjs';
+import { Message } from '@stomp/stompjs';
+
 import { DirectChatService } from '../shared/services/directChat.service';
-import { WebSocketAPI } from '../shared/services/WebSocketAPI.service';
+import { LoginService } from '../shared/services/login.service';
 
 @Component({
   selector: 'app-newchat',
@@ -16,20 +11,44 @@ import { WebSocketAPI } from '../shared/services/WebSocketAPI.service';
   styleUrls: ['./newchat.component.scss']
 })
 export class NewchatComponent implements OnInit {
+  public receivedMessages: string[] = [];
   @Input() visible : boolean;
   @Output() visibleChange = new EventEmitter<boolean>();
   @Output() recipientChange = new EventEmitter<string>();
-  searchText: string;
+
   recipient: string;
-  constructor( public directChatService : DirectChatService,public websocket : WebSocketAPI) { 
+  currentTopic: string = '';
+  topicSubscription;
+  constructor(private rxStompService: RxStompService,public directChatService : DirectChatService,public loginService : LoginService) { 
     this.directChatService.getVar().subscribe((data) => {
       console.log(data);
+
+    if(data) 
+    {
+      if(!this.topicSubscription)
+      {
+        console.log("sub is empty");
+        this.currentTopic = "/topic/messages/"+ this.loginService.email +"_"+  data;
+        this.topicSubscription = this.rxStompService.watch(this.currentTopic).subscribe((message: Message) => {
+          this.receivedMessages.push(message.body);
+        });
+      }
+      else
+      {
+        console.log("unsubscribing");
+        this.currentTopic = "/topic/messages/"+ this.loginService.email +"_"+  data;
+        this.topicSubscription.unsubscribe();
+  
+         this.topicSubscription = this.rxStompService.watch(this.currentTopic).subscribe((message: Message) => {
+          this.receivedMessages.push(message.body);
+        });
+      }
+  
+    }
     } );
 
   }
 
-  ngOnInit(): void {
-  }
 
   closeNewChat() {
     this.visible = !this.visible;
@@ -37,8 +56,9 @@ export class NewchatComponent implements OnInit {
   }
 
   newChat(){
-   this.directChatService.insertData(this.searchText);
-   this.websocket._subscribeTopic();
+   this.directChatService.insertData(this.recipient);
+
+
    this.closeNewChat();
   }
 
@@ -46,5 +66,12 @@ export class NewchatComponent implements OnInit {
     console.log("new group");
     this.closeNewChat();
    }
+
+
+     
+   ngOnInit() {
+    console.log("initialize websocket api");
+
+}
 
 }
