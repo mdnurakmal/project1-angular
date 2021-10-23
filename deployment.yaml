@@ -77,9 +77,9 @@ spec:
         path: "/*"
         backend:
           service:
-            name: nginx-reverse-proxy-service
+            name: ws-reverse-proxy-service
             port:
-              number: 8080
+              number: 443
 
 
 
