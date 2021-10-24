@@ -1,18 +1,8 @@
 import { InjectableRxStompConfig } from '@stomp/ng2-stompjs';
 
-const prepareBrokerURL = (path: string): string => {
-  // Create a relative http(s) URL relative to current page
-  const url = new URL(path, window.location.href);
-  // Convert protocol http -> ws and https -> wss
-  url.protocol = url.protocol.replace('http', 'wss');
-
-  return url.href;
-};
-
 export const myRxStompConfig: InjectableRxStompConfig = {
-  // Which server?
+  // working?
   brokerURL: 'wss://nginx.mdnurakmal.com/app/',
-
   // Headers
   // Typical keys: login, passcode, host
 
