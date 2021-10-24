@@ -4,14 +4,14 @@ const prepareBrokerURL = (path: string): string => {
   // Create a relative http(s) URL relative to current page
   const url = new URL(path, window.location.href);
   // Convert protocol http -> ws and https -> wss
-  url.protocol = url.protocol.replace('https', 'wss');
+  url.protocol = url.protocol.replace('http', 'ws');
 
   return url.href;
 };
 
 export const myRxStompConfig: InjectableRxStompConfig = {
   // Which server?
-  brokerURL: prepareBrokerURL('https://wschat.mdnurakmal.com'),
+  brokerURL: 'ws://wschat.mdnurakmal.com:8080',
 
   // Headers
   // Typical keys: login, passcode, host
