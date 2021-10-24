@@ -37,8 +37,7 @@ spec:
     - name: my-https-port
       port: 443
       targetPort: 80
-
-
+      
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -48,7 +47,6 @@ metadata:
     kubernetes.io/ingress.global-static-ip-name: angular-ip
     networking.gke.io/managed-certificates: managed-cert
     kubernetes.io/ingress.class: "gce"
-    beta.cloud.google.com/backend-config: '{"ports": {"8080":"my-backendconfig"}}'
 spec:
   rules:
   - host: "mdnurakmal.com"
