@@ -11,7 +11,7 @@ const prepareBrokerURL = (path: string): string => {
 
 export const myRxStompConfig: InjectableRxStompConfig = {
   // Which server?
-  brokerURL: prepareBrokerURL('http://wschat.mdnurakmal.com:8080'),
+  brokerURL: 'ws://35.226.241.214:8080/',
 
   // Headers
   // Typical keys: login, passcode, host
