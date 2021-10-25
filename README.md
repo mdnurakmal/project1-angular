@@ -1,15 +1,38 @@
-# WhatsappClone
-
-# Uses Ingress to deploy SSL HTTPS Load balancer
+# Real-time chat using Angular , Spring-Boot & GCP
 
 # Task
-Setup NGINX conf to redirect http to https 
-Setup deployment yaml to create google managed ssl certificate and ingress
-Use APP_INTIALIZER TO set environment variable at runtime 
-Callback error after sockjs disconnected , heartbeat not consistent , cyclic dependency error
-Use rx-stomp instead of sockjs , same for spring boot server strictly websocket only
-Deploy nginx reverse proxy to communicate with unsecure ws backend. Other alternative is to secure your spring boot
-Unable to set ingress link in nginx con because it will still try to connect ws securely
+Build a helm chart from local development environment and migrate to GKE using cloud build*
+-Containerize angular app, spring boot server, nginx reverse proxy server
+Build CI/CD pipeline
+-Automate docker image using cloud build
+-Automate helm deployment using cloud build*
+
+
+Create deployment.yaml file to provisioning of following resources
+-Kubernetes ingress on GKE to serve angular and nginx reverse proxy backend
+-Google Managed SSL Certificate for Kubernetes Ingress
+
+Used APP_INTIALIZER in angular to set websocket url to backend service IP at runtime
+Used GCP Secret manager to store docker credentials and authenticate to docker hub from cloud build environment
+Integrate websocket into angular project using rxjs
+Integrate messaging broker in angular using rx-stomp and stompjs
+Deploy NGINX as a reverse proxy server to communicate with an unsecure websocket backend without exposing public IP. 
+Automate extraction of kubernetes service IP address to insert into nginx.conf for proxy_pass url during cloud build
+
+Integrate kafka with spring-boot to serve as a database and scalable message-broker  
+
+
+# Improvements
+Implement security for spring-boot server instead of using reverse proxy
+
+# To Do
+Group chat
+Video call
+Sharing of video,images
+Changing of profile picture
+Recording of short voice messages
+
+
 
 # References
 https://medium.com/johnjjung/how-to-use-gcp-loadbalancer-with-websockets-on-kubernetes-using-services-ingresses-and-backend-16a5565e4702
