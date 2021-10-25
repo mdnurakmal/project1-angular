@@ -2,9 +2,9 @@ import { InjectableRxStompConfig } from '@stomp/ng2-stompjs';
 
 export const myRxStompConfig: InjectableRxStompConfig = {
   //production
-  //brokerURL: 'wss://nginx.mdnurakmal.com/app/',
+  brokerURL: 'wss://nginx.mdnurakmal.com/app/',
   //development
-  brokerURL: 'ws://localhost:8080',
+  //brokerURL: 'ws://localhost:8080',
   // Headers
   // Typical keys: login, passcode, host
 
