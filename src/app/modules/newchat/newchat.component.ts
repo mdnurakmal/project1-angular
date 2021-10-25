@@ -11,41 +11,14 @@ import { LoginService } from '../shared/services/login.service';
   styleUrls: ['./newchat.component.scss']
 })
 export class NewchatComponent implements OnInit {
-  public receivedMessages: string[] = [];
+
   @Input() visible : boolean;
   @Output() visibleChange = new EventEmitter<boolean>();
   @Output() recipientChange = new EventEmitter<string>();
 
   recipient: string;
-  currentTopic: string = '';
-  topicSubscription;
-  constructor(private rxStompService: RxStompService,public directChatService : DirectChatService,public loginService : LoginService) { 
-    this.directChatService.getVar().subscribe((data) => {
-      console.log(data);
 
-    if(data) 
-    {
-      if(!this.topicSubscription)
-      {
-        console.log("sub is empty");
-        this.currentTopic = "/topic/messages/"+ this.loginService.email +"_"+  data;
-        this.topicSubscription = this.rxStompService.watch(this.currentTopic).subscribe((message: Message) => {
-          this.receivedMessages.push(message.body);
-        });
-      }
-      else
-      {
-        console.log("unsubscribing");
-        this.currentTopic = "/topic/messages/"+ this.loginService.email +"_"+  data;
-        this.topicSubscription.unsubscribe();
-  
-         this.topicSubscription = this.rxStompService.watch(this.currentTopic).subscribe((message: Message) => {
-          this.receivedMessages.push(message.body);
-        });
-      }
-  
-    }
-    } );
+  constructor(private rxStompService: RxStompService,public directChatService : DirectChatService,public loginService : LoginService) { 
 
   }
 
