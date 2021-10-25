@@ -2,7 +2,7 @@
 
 # Task
 Build a helm chart from local development environment and migrate to GKE using cloud build*
--Containerize angular app, spring boot server, nginx reverse proxy server
+-Dockerizing angular app, spring boot server, nginx reverse proxy server
 
 -Trigger cloud build from cloud source repository to run CI/CD pipeline
 -Automate docker image using cloud build
@@ -23,7 +23,7 @@ Automate extraction of kubernetes service IP address to insert into nginx.conf f
 
 Integrate kafka with spring-boot to serve as a database and scalable message-broker  
 
-
+Used configmap in kubernetes to set application.yaml in spring boot at runtime
 # Improvements
 Implement security for spring-boot server instead of using reverse proxy
 
@@ -48,3 +48,8 @@ https://cloud.google.com/build/docs/deploying-builds/deploy-gke#before_you_begin
 https://stackoverflow.com/questions/53745789/how-to-configure-nginx-to-proxy-ws-websocket-protocol
 https://www.thomasvitale.com/https-spring-boot-ssl-certificate/
 https://www.youtube.com/watch?v=b-obZ8ZloIc&ab_channel=AyyazTech
+
+# Problems faced
+Handshake failed due to invalid Upgrade header in spring boot
+Websocket (back end) > kafka producer (back end) > kafka consumer > websocket ((back end))
+How to poll/read all messages from a topic

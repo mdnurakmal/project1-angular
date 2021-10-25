@@ -19,6 +19,7 @@ export class ChatComponent implements OnInit {
   message = '';
   receiver ='';
   recipientTopic: string = '';
+  getAllMessagesTopic: string = '';
   senderTopic: string = '';
   receiverSubscription;
 
@@ -32,6 +33,7 @@ export class ChatComponent implements OnInit {
       this.receivedMessages=[];
       this.recipientTopic = "/topic/messages/"+ data + "/" + this.loginService.email;
       this.senderTopic = "/topic/messages/"+ this.loginService.email + "/" + data;
+      this.getAllMessagesTopic = "/topic/getallmessages/"+ this.loginService.email + "/" + data;
       if(!this.receiverSubscription)
       {
         console.log("sub is empty");
@@ -46,7 +48,7 @@ export class ChatComponent implements OnInit {
       {
         console.log("unsubscribing");
         
-        this.receiverSubscription.unsubscribe();
+         this.receiverSubscription.unsubscribe();
          this.receiverSubscription = this.rxStompService.watch(this.recipientTopic).subscribe((message: Message) => {
    
           this.convertToMessage(message.body,false);
@@ -55,6 +57,7 @@ export class ChatComponent implements OnInit {
 
       }
 
+      this.rxStompService.publish({ destination: this.getAllMessagesTopic, body: "" });
     }
     } );
   }
@@ -88,7 +91,7 @@ export class ChatComponent implements OnInit {
     const message = JSON.stringify(content);
     this.convertToMessage(message,true);
     this.rxStompService.publish({ destination: this.senderTopic, body: message });
-    this.rxStompService.publish({ destination: "/sendMessage", body: message });
+
 
     // this.conversation.latestMessage = value;
     // this.conversation.messages.unshift({
