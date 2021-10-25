@@ -57,7 +57,7 @@ export class ChatComponent implements OnInit {
 
       }
 
-      this.rxStompService.publish({ destination: this.getAllMessagesTopic, body: "" });
+      this.rxStompService.publish({ destination: this.getAllMessagesTopic, body: "getAllMessagesTopic" });
     }
     } );
   }
