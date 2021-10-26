@@ -8,6 +8,10 @@ import {
 } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
+import { RxStompService } from '@stomp/ng2-stompjs';
+import { Message } from '@stomp/stompjs';
+import { WSConversation } from '../shared/model/WSConversation.model';
+import { WSMessage } from '../shared/model/WSMessage.model';
 import { DirectChatService } from '../shared/services/directChat.service';
 @Component({
   selector: 'app-sidebar',
@@ -19,182 +23,53 @@ export class SidebarComponent implements OnInit {
   @Output() conversationClicked: EventEmitter<any> = new EventEmitter();
   
   searchText: string;
+  getAllMessagesForUserTopic: string;
 
-  constructor(public auth : AuthService, public directChat : DirectChatService){
+  conversations : WSConversation[];
+
+  constructor(private rxStompService: RxStompService,public authService : AuthService, public directChat : DirectChatService){
+    
+    authService.user$.subscribe((user) => 
+    {
+      this.getAllMessagesForUserTopic = "/topic/getallmessagesforuser/"+ user.email;
+      this.rxStompService.publish({ destination: this.getAllMessagesForUserTopic, body: "getAllMessagesForUserTopic" });
+    });
+
+    this.rxStompService.watch(this.getAllMessagesForUserTopic).subscribe((message: Message) => {
+   
+      this.populateConversations(message.body);
+
+    });
+
     this.visible=false;
   }
 
 
-  conversations = [
-    {
-      name: 'David',
-      time: '8:21',
-      latestMessage: 'Hi there!!',
-      latestMessageRead: false,
-      messages: [
-        { id: 1, body: 'Hello world', time: '8:21', me: true },
-        { id: 2, body: 'How are you?', time: '8:21', me: false },
-        { id: 3, body: 'I am fine thanks', time: '8:21', me: true },
-        { id: 4, body: 'Glad to hear that', time: '8:21', me: false },
-      ],
-    },
-    {
-      name: 'James',
-      time: '8:21',
-      latestMessage: 'wow',
-      latestMessageRead: true,
-      messages: [
-        { id: 1, body: 'Hello world', time: '8:21', me: true },
-        { id: 2, body: 'How are you?', time: '8:21', me: false },
-        { id: 3, body: 'I am fine thanks', time: '8:21', me: true },
-        { id: 4, body: 'Glad to hear that', time: '8:21', me: false },
-      ],
-    },
-    {
-      name: 'Andrew',
-      time: '8:21',
-      latestMessage: 'I am fine',
-      latestMessageRead: false,
-      messages: [
-        { id: 1, body: 'Hello world', time: '8:21', me: true },
-        { id: 2, body: 'How are you?', time: '8:21', me: false },
-        { id: 3, body: 'I am fine thanks', time: '8:21', me: true },
-        { id: 4, body: 'Glad to hear that', time: '8:21', me: false },
-      ],
-    },
-    {
-      name: 'Richard',
-      time: '8:21',
-      latestMessage: 'lol',
-      latestMessageRead: true,
-      messages: [
-        { id: 1, body: 'Hello world', time: '8:21', me: true },
-        { id: 2, body: 'How are you?', time: '8:21', me: false },
-        { id: 3, body: 'I am fine thanks', time: '8:21', me: true },
-        { id: 4, body: 'Glad to hear that', time: '8:21', me: false },
-      ],
-    },
-    {
-      name: 'Dyno',
-      time: '8:21',
-      latestMessage: 'Alright',
-      latestMessageRead: false,
-      messages: [
-        { id: 1, body: 'Hello world', time: '8:21', me: true },
-        { id: 2, body: 'How are you?', time: '8:21', me: false },
-        { id: 3, body: 'I am fine thanks', time: '8:21', me: true },
-        { id: 4, body: 'Glad to hear that', time: '8:21', me: false },
-      ],
-    },
-    {
-      name: 'Julie',
-      time: '8:21',
-      latestMessage: "Let's go",
-      latestMessageRead: false,
-      messages: [
-        { id: 1, body: 'Hello world', time: '8:21', me: true },
-        { id: 2, body: 'How are you?', time: '8:21', me: false },
-        { id: 3, body: 'I am fine thanks', time: '8:21', me: true },
-        { id: 4, body: 'Glad to hear that', time: '8:21', me: false },
-      ],
-    },
-    {
-      name: 'Tom',
-      time: '8:21',
-      latestMessage: 'I see',
-      latestMessageRead: true,
-      messages: [
-        { id: 1, body: 'Hello world', time: '8:21', me: true },
-        { id: 2, body: 'How are you?', time: '8:21', me: false },
-        { id: 3, body: 'I am fine thanks', time: '8:21', me: true },
-        { id: 4, body: 'Glad to hear that', time: '8:21', me: false },
-      ],
-    },
-    {
-      name: 'Jerry',
-      time: '8:21',
-      latestMessage: 'OMG',
-      latestMessageRead: false,
-      messages: [
-        { id: 1, body: 'Hello world', time: '8:21', me: true },
-        { id: 2, body: 'How are you?', time: '8:21', me: false },
-        { id: 3, body: 'I am fine thanks', time: '8:21', me: true },
-        { id: 4, body: 'Glad to hear that', time: '8:21', me: false },
-      ],
-    },
-    {
-      name: 'Grey',
-      time: '8:21',
-      latestMessage: 'Oh No',
-      latestMessageRead: false,
-      messages: [
-        { id: 1, body: 'Hello world', time: '8:21', me: true },
-        { id: 2, body: 'How are you?', time: '8:21', me: false },
-        { id: 3, body: 'I am fine thanks', time: '8:21', me: true },
-        { id: 4, body: 'Glad to hear that', time: '8:21', me: false },
-      ],
-    },
-    {
-      name: 'Jill',
-      time: '8:21',
-      latestMessage: 'Thanks',
-      latestMessageRead: true,
-      messages: [
-        { id: 1, body: 'Hello world', time: '8:21', me: true },
-        { id: 2, body: 'How are you?', time: '8:21', me: false },
-        { id: 3, body: 'I am fine thanks', time: '8:21', me: true },
-        { id: 4, body: 'Glad to hear that', time: '8:21', me: false },
-      ],
-    },
-    {
-      name: 'Blue',
-      time: '8:21',
-      latestMessage: 'Take care',
-      latestMessageRead: false,
-      messages: [
-        { id: 1, body: 'Hello world', time: '8:21', me: true },
-        { id: 2, body: 'How are you?', time: '8:21', me: false },
-        { id: 3, body: 'I am fine thanks', time: '8:21', me: true },
-        { id: 4, body: 'Glad to hear that', time: '8:21', me: false },
-      ],
-    },
-    {
-      name: 'King',
-      time: '8:21',
-      latestMessage: 'I am coming now',
-      latestMessageRead: false,
-      messages: [
-        { id: 1, body: 'Hello world', time: '8:21', me: true },
-        { id: 2, body: 'How are you?', time: '8:21', me: false },
-        { id: 3, body: 'I am fine thanks', time: '8:21', me: true },
-        { id: 4, body: 'Glad to hear that', time: '8:21', me: false },
-      ],
-    },
-    {
-      name: 'Kong',
-      time: '8:21',
-      latestMessage: 'Good Morning!',
-      latestMessageRead: true,
-      messages: [
-        { id: 1, body: 'Hello world', time: '8:21', me: true },
-        { id: 2, body: 'How are you?', time: '8:21', me: false },
-        { id: 3, body: 'I am fine thanks', time: '8:21', me: true },
-        { id: 4, body: 'Glad to hear that', time: '8:21', me: false },
-      ],
-    },
-    {
-      name: 'Rock',
-      time: '8:21',
-      latestMessage: 'Good Morning!',
-      latestMessageRead: true,
-      messages: [
-        { id: 1, body: 'Hello world', time: '8:21', me: true },
-        { id: 2, body: 'How are you?', time: '8:21', me: false },
-        { id: 3, body: 'I am fine thanks', time: '8:21', me: true },
-        { id: 4, body: 'Glad to hear that', time: '8:21', me: false },
-      ],
-    },
-  ];
+  populateConversations(message: string)
+  {
+    console.log("populating");
+    const obj = JSON.parse(message);
+        var temp = new WSConversation(obj["receiver"],obj["time"],obj["content"],false);
+
+        if(this.conversations.length==0)
+          this.conversations.unshift(temp);
+        else
+        {
+            var itExists = false;
+            for (let i = 0; i < this.conversations.length; i++) {
+              if(this.conversations[i].name == obj["receiver"])
+                itExists=true;
+            }
+
+            if (!itExists)
+              this.conversations.unshift(temp);
+
+        }
+
+        console.log(this.conversations);
+
+  }
+  
 
   get filteredConversations() {
     return this.conversations.filter((conversation) => {

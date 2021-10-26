@@ -1,6 +1,10 @@
 # Real-time chat using Angular , Spring-Boot & GCP
 
 # Task
+Create IaaC using Terraform
+-Provision GKE
+-Install Custom Helm Chart 
+
 Build a helm chart from local development environment and migrate to GKE using cloud build*
 -Dockerizing angular app, spring boot server, nginx reverse proxy server
 
@@ -36,7 +40,9 @@ Recording of short voice messages
 Sound notification
 Tab notification title change
 End to end encryption
-
+Periodic backup
+Change of side according to new messages
+Scalability stress test
 
 # References
 https://medium.com/johnjjung/how-to-use-gcp-loadbalancer-with-websockets-on-kubernetes-using-services-ingresses-and-backend-16a5565e4702
@@ -50,6 +56,9 @@ https://www.thomasvitale.com/https-spring-boot-ssl-certificate/
 https://www.youtube.com/watch?v=b-obZ8ZloIc&ab_channel=AyyazTech
 
 # Problems faced
-Handshake failed due to invalid Upgrade header in spring boot
+Handshake failed due to invalid Upgrade header in spring boot 
+How to poll/read all messages from a topic or read messages from the beginning -> Create custom kafka consumer and poll manually
+Unable to connect to unsecure websocket through GKE kubernetes ingress -> Create nginx reverse proxy 
+
+
 Websocket (back end) > kafka producer (back end) > kafka consumer > websocket ((back end))
-How to poll/read all messages from a topic

@@ -19,7 +19,7 @@ export class ChatComponent implements OnInit {
   message = '';
   receiver ='';
   recipientTopic: string = '';
-  getAllMessagesTopic: string = '';
+  getAllMessagesFromUserTopic: string = '';
   senderTopic: string = '';
   receiverSubscription;
 
@@ -33,7 +33,7 @@ export class ChatComponent implements OnInit {
       this.receivedMessages=[];
       this.recipientTopic = "/topic/messages/"+ data + "/" + this.loginService.email;
       this.senderTopic = "/topic/messages/"+ this.loginService.email + "/" + data;
-      this.getAllMessagesTopic = "/topic/getallmessages/"+ this.loginService.email + "/" + data;
+      this.getAllMessagesFromUserTopic = "/topic/getallmessagesfromuser/"+ this.loginService.email + "/" + data;
       if(!this.receiverSubscription)
       {
         console.log("sub is empty");
@@ -57,7 +57,7 @@ export class ChatComponent implements OnInit {
 
       }
 
-      this.rxStompService.publish({ destination: this.getAllMessagesTopic, body: "getAllMessagesTopic" });
+      this.rxStompService.publish({ destination: this.getAllMessagesFromUserTopic, body: "getAllMessagesTopic" });
     }
     } );
   }
