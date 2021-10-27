@@ -34,15 +34,13 @@ export class SidebarComponent implements OnInit {
       this.getAllMessagesForUserTopic = "/topic/getallmessagesforuser/"+ user.email;
       this.rxStompService.publish({ destination: this.getAllMessagesForUserTopic, body: "getAllMessagesForUserTopic" });
 
+      console.log("subscribing too" + this.getAllMessagesForUserTopic);
       this.rxStompService.watch(this.getAllMessagesForUserTopic).subscribe((message: Message) => {
-   
+        console.log("receive message");
         this.populateConversations(message.body);
   
       });
     });
-
-
-
 
     this.visible=false;
   }
