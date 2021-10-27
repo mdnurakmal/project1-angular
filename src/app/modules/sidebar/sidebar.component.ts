@@ -50,7 +50,7 @@ export class SidebarComponent implements OnInit {
   {
     console.log("populating");
     const obj = JSON.parse(message);
-        var temp = new WSConversation(obj["receiver"],obj["time"],obj["content"],false);
+        var temp = new WSConversation(obj["receiver"],obj["timestamp"],obj["content"],false);
 
         if(this.conversations.length==0)
           this.conversations.unshift(temp);
