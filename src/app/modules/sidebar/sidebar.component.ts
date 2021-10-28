@@ -49,6 +49,7 @@ export class SidebarComponent implements OnInit {
   populateConversations(message: string)
   {
     console.log("populating");
+    console.log(message);
     const obj = JSON.parse(message);
         var temp = new WSConversation(obj["receiver"],obj["timestamp"],obj["content"],false);
 

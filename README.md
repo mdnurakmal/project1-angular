@@ -54,11 +54,15 @@ https://cloud.google.com/build/docs/deploying-builds/deploy-gke#before_you_begin
 https://stackoverflow.com/questions/53745789/how-to-configure-nginx-to-proxy-ws-websocket-protocol
 https://www.thomasvitale.com/https-spring-boot-ssl-certificate/
 https://www.youtube.com/watch?v=b-obZ8ZloIc&ab_channel=AyyazTech
-
+https://github.com/omkreddy/kafka-examples/blob/master/consumer/src/main/java/kafka/examples/consumer/advanced/AdvancedConsumer.java
+https://stackoverflow.com/questions/53089007/apache-kafka-seek-and-assignment-reliable-read-from-beginning
+https://stackoverflow.com/questions/54480715/no-current-assignment-for-partition-occurs-even-after-poll-in-kafka
 # Problems faced
 Handshake failed due to invalid Upgrade header in spring boot 
 How to poll/read all messages from a topic or read messages from the beginning -> Create custom kafka consumer and poll manually
 Unable to connect to unsecure websocket through GKE kubernetes ingress -> Create nginx reverse proxy 
 
+Unable to retrieve messages from topics that was subscribed using pattern (wordaround get all the topics and filter per user)
 
+Does rx-stomp watch automatically unsubscribe when browser is closed ?
 Websocket (back end) > kafka producer (back end) > kafka consumer > websocket ((back end))
