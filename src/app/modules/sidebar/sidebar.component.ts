@@ -25,10 +25,10 @@ export class SidebarComponent implements OnInit {
   searchText: string;
   getAllMessagesForUserTopic: string;
 
-  conversations : WSConversation[];
+  public conversations : WSConversation[];
 
   constructor(private rxStompService: RxStompService,public authService : AuthService, public directChat : DirectChatService){
-    
+    this.conversations = [];
     authService.user$.subscribe((user) => 
     {
       this.getAllMessagesForUserTopic = "/topic/getallmessagesforuser/"+ user.email;
@@ -38,7 +38,7 @@ export class SidebarComponent implements OnInit {
       this.rxStompService.watch(this.getAllMessagesForUserTopic+"/result").subscribe((message: Message) => {
         console.log("receive message");
         this.populateConversations(message.body);
-  
+ 
       });
     });
 
