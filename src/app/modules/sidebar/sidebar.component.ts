@@ -59,7 +59,7 @@ export class SidebarComponent implements OnInit {
         {
             var itExists = false;
             for (let i = 0; i < this.conversations.length; i++) {
-              if(this.conversations[i].name == obj["receiver"])
+              if(this.conversations[i].name == obj["sender"])
                 itExists=true;
             }
 
