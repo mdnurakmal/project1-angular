@@ -68,4 +68,7 @@ Does rx-stomp watch automatically unsubscribe when browser is closed ?
 Websocket (back end) > kafka producer (back end) > kafka consumer > websocket ((back end))
 Website still caches within incognito mode
 
-existing error ? digital-envelope-routinesunsupported > workaround use in package.json--openssl-legacy-provider start 
+existing error ? digital-envelope-routinesunsupported > workaround by adding 
+```shell
+"start": "export SET NODE_OPTIONS=--openssl-legacy-provider && ng serve"
+```

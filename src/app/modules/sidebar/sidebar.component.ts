@@ -35,7 +35,7 @@ export class SidebarComponent implements OnInit {
       this.rxStompService.publish({ destination: this.getAllMessagesForUserTopic, body: "getAllMessagesForUserTopic" });
 
       console.log("subscribing too" + this.getAllMessagesForUserTopic);
-      this.rxStompService.watch(this.getAllMessagesForUserTopic).subscribe((message: Message) => {
+      this.rxStompService.watch(this.getAllMessagesForUserTopic+"/result").subscribe((message: Message) => {
         console.log("receive message");
         this.populateConversations(message.body);
   
