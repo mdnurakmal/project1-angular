@@ -66,3 +66,4 @@ Unable to retrieve messages from topics that was subscribed using pattern (worda
 
 Does rx-stomp watch automatically unsubscribe when browser is closed ?
 Websocket (back end) > kafka producer (back end) > kafka consumer > websocket ((back end))
+Website still caches within incognito mode
