@@ -30,20 +30,26 @@ export class ChatComponent implements OnInit {
     if(data) 
     {
       this.receivedMessages=[];
-      this.chatRoomTopic = "/topic/messages/" + this.loginService.email;
       this.loadMessagesTopic = "/topic/loadMessages/"+ this.loginService.email + "/" + data;
-      if(!this.receiverSubscription)
-      {
-        console.log("sub is empty");
-        this.receiverSubscription = this.rxStompService.watch(this.chatRoomTopic).subscribe((message: Message) => {
-          console.log("Received message:" + message.body);
-          this.convertToMessage(message.body,false);
-          console.log("Total rececived messages:" + this.receivedMessages.length);
-          
-        });
-      }
 
+      this.receiverSubscription = this.rxStompService.watch(this.loadMessagesTopic+"/result").subscribe((message: Message) => {
+        var hashCodeTopic = message.body;
+        this.chatRoomTopic = "/topic/messages/" + hashCodeTopic;
+
+        if(!this.receiverSubscription)
+        {
+          console.log("sub is empty");
+          this.receiverSubscription = this.rxStompService.watch(this.chatRoomTopic).subscribe((message: Message) => {
+            console.log("Received message:" + message.body);
+            this.convertToMessage(message.body,false);
+            console.log("Total rececived messages:" + this.receivedMessages.length);
+            
+          });
+        }
+
+        });
       this.rxStompService.publish({ destination: this.loadMessagesTopic, body: "getAllMessagesTopic" });
+ 
     }
     } );
   }
