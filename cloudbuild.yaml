@@ -10,13 +10,13 @@ steps:
     secretEnv: [ 'DOCKERUSERNAME', 'DOCKERPASSWORD' ]
 
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
-  entrypoint: 'bash'
-  args:
-    - '-c'
-    - |
-      gcloud config set compute/zone us-central1-c
-      gcloud container clusters get-credentials my-kubernetes-cluster
-      source init.sh
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        gcloud config set compute/zone us-central1-c
+        gcloud container clusters get-credentials my-kubernetes-cluster
+        source init.sh
 
 
 availableSecrets:
