@@ -9,12 +9,23 @@ steps:
         docker push mdnurakmal/project1-angular:latest
     secretEnv: [ 'DOCKERUSERNAME', 'DOCKERPASSWORD' ]
 
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+      gcloud config set compute/zone us-central1-c
+      gcloud container clusters get-credentials my-kubernetes-cluster
+      source init.sh
+
+
 availableSecrets:
   secretManager:
     - versionName: projects/test-327905/secrets/DOCKERUSERNAME/versions/1
       env: 'DOCKERUSERNAME'
     - versionName: projects/test-327905/secrets/DOCKERPASSWORD/versions/1
       env: 'DOCKERPASSWORD'
+    
 
 
 options:

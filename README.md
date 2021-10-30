@@ -28,6 +28,8 @@ Automate extraction of kubernetes service IP address to insert into nginx.conf f
 Integrate kafka with spring-boot to serve as a database and scalable message-broker  
 
 Used configmap in kubernetes to set application.yaml in spring boot at runtime
+
+Store Service Account JSON key in Secret manager and mount in deployment config
 # Improvements
 Implement security for spring-boot server instead of using reverse proxy
 

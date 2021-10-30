@@ -23,7 +23,7 @@ export class SidebarComponent implements OnInit {
   @Output() conversationClicked: EventEmitter<any> = new EventEmitter();
   
   searchText: string;
-  getAllMessagesForUserTopic: string;
+  loadSidebarTopic: string;
 
   public conversations : WSConversation[];
 
@@ -31,11 +31,11 @@ export class SidebarComponent implements OnInit {
     this.conversations = [];
     authService.user$.subscribe((user) => 
     {
-      this.getAllMessagesForUserTopic = "/topic/getallmessagesforuser/"+ user.email;
-      this.rxStompService.publish({ destination: this.getAllMessagesForUserTopic, body: "getAllMessagesForUserTopic" });
+      this.loadSidebarTopic = "/topic/loadSidebar/"+ user.email;
+      this.rxStompService.publish({ destination: this.loadSidebarTopic, body: "getAllMessagesForUserTopic" });
 
-      console.log("subscribing too" + this.getAllMessagesForUserTopic);
-      this.rxStompService.watch(this.getAllMessagesForUserTopic+"/result").subscribe((message: Message) => {
+      console.log("subscribing too" + this.loadSidebarTopic);
+      this.rxStompService.watch(this.loadSidebarTopic+"/result").subscribe((message: Message) => {
         console.log("receive message");
         this.populateConversations(message.body);
  

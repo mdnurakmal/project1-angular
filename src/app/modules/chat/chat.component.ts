@@ -18,9 +18,8 @@ export class ChatComponent implements OnInit {
 
   message = '';
   receiver ='';
-  recipientTopic: string = '';
-  getAllMessagesFromUserTopic: string = '';
-  senderTopic: string = '';
+  chatRoomTopic: string = '';
+  loadMessagesTopic: string = '';
   receiverSubscription;
 
 
@@ -31,33 +30,20 @@ export class ChatComponent implements OnInit {
     if(data) 
     {
       this.receivedMessages=[];
-      this.recipientTopic = "/topic/messages/"+ data + "/" + this.loginService.email;
-      this.senderTopic = "/topic/messages/"+ this.loginService.email + "/" + data;
-      this.getAllMessagesFromUserTopic = "/topic/getallmessagesfromuser/"+ this.loginService.email + "/" + data;
+      this.chatRoomTopic = "/topic/messages/" + this.loginService.email;
+      this.loadMessagesTopic = "/topic/loadMessages/"+ this.loginService.email + "/" + data;
       if(!this.receiverSubscription)
       {
         console.log("sub is empty");
-        this.receiverSubscription = this.rxStompService.watch(this.recipientTopic).subscribe((message: Message) => {
+        this.receiverSubscription = this.rxStompService.watch(this.chatRoomTopic).subscribe((message: Message) => {
           console.log("Received message:" + message.body);
           this.convertToMessage(message.body,false);
           console.log("Total rececived messages:" + this.receivedMessages.length);
           
         });
       }
-      else
-      {
-        console.log("unsubscribing");
-        
-         this.receiverSubscription.unsubscribe();
-         this.receiverSubscription = this.rxStompService.watch(this.recipientTopic).subscribe((message: Message) => {
-   
-          this.convertToMessage(message.body,false);
-          console.log("Total rececived messages:" + this.receivedMessages.length);
-        });
 
-      }
-
-      this.rxStompService.publish({ destination: this.getAllMessagesFromUserTopic, body: "getAllMessagesTopic" });
+      this.rxStompService.publish({ destination: this.loadMessagesTopic, body: "getAllMessagesTopic" });
     }
     } );
   }
@@ -90,7 +76,7 @@ export class ChatComponent implements OnInit {
 
     const message = JSON.stringify(content);
     this.convertToMessage(message,true);
-    this.rxStompService.publish({ destination: this.senderTopic, body: message });
+    this.rxStompService.publish({ destination: this.chatRoomTopic, body: message });
 
 
     // this.conversation.latestMessage = value;
