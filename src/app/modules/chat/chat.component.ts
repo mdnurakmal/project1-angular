@@ -25,7 +25,7 @@ export class ChatComponent implements OnInit {
 
 
   constructor(private rxStompService: RxStompService,public directChatService : DirectChatService,public loginService : LoginService){
-    const that = this;
+
     this.directChatService.getVar().subscribe((data) => {
       console.log(data);
       this.receiver=data;
@@ -46,8 +46,8 @@ export class ChatComponent implements OnInit {
         if(this.loadMessagesSub)
           this.loadMessagesSub.unsubscribe();
 
-        console.log("sub is empty");
-        this.receiverSubscription = that.rxStompService.watch(this.chatRoomTopic).subscribe((message: Message) => {
+        console.log("subscribing to " + this.chatRoomTopic);
+        this.receiverSubscription = this.rxStompService.watch(this.chatRoomTopic).subscribe((message: Message) => {
           console.log("Received message:" + message.body);
           this.convertToMessage(message.body,false);
           console.log("Total rececived messages:" + this.receivedMessages.length);
