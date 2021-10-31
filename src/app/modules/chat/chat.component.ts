@@ -81,6 +81,7 @@ export class ChatComponent implements OnInit {
 
   convertToMessage(msg : string) : void {
     const obj = JSON.parse(msg);
+    obj['content'].substring(0, Math.min( obj['content'].length(), 10));
     this.receivedMessages.unshift(obj);
   }
 
