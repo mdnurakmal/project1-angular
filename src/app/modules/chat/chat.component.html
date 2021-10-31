@@ -19,7 +19,7 @@
     <div class="msg" *ngFor="let message of receivedMessages">
       <div class="bubble" [ngClass]="{ altfollow: message.sender == this.loginService.email }">
         <div class="txt">
-          <span class="name">+353 87 1234 567<span> ~ {{ message.sender}</span></span>
+          <span class="name"><span> ~ {{ message.sender}</span></span>
           <span class="timestamp">{{ message.timestamp }}</span>
           <p class="message">  {{ message.content }}</p>
         </div>
