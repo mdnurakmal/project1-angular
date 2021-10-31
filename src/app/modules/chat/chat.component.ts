@@ -92,7 +92,7 @@ export class ChatComponent implements OnInit {
     };
 
     const message = JSON.stringify(content);
-    this.convertToMessage(message,true);
+    //this.convertToMessage(message,true);
     this.rxStompService.publish({ destination: this.chatRoomTopic, body: message });
 
 
