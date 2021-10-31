@@ -86,6 +86,7 @@ export class ChatComponent implements OnInit {
     var content = 
     {
         "sender": this.loginService.email,
+        "receiver": this.receiver,
         "content":value,
         "timestamp": timestamp
     };
