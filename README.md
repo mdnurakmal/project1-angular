@@ -21,6 +21,7 @@ Used APP_INTIALIZER in angular to set websocket url to backend service IP at run
 Used GCP Secret manager to store docker credentials and authenticate to docker hub from cloud build environment
 Integrate websocket into angular project using rxjs
 Integrate messaging broker in angular using rx-stomp and stompjs
+Uses spring boot firestore dependencies to run CRUD command 
 
 Deploy NGINX as a reverse proxy server to communicate to spring boot backend with WSS protocol without exposing public IP. 
 Automate extraction of kubernetes service IP address to insert into nginx.conf for proxy_pass url during cloud build
@@ -30,6 +31,7 @@ Integrate kafka with spring-boot to serve as a database and scalable message-bro
 Used configmap in kubernetes to set application.yaml in spring boot at runtime
 
 Store Service Account JSON key in Secret manager and mount in deployment config
+Use instance schedule to resize kubernetes cluster in dev environment to 0 to reduce VM usage after office hours.
 # Improvements
 Implement security for spring-boot server instead of using reverse proxy
 

@@ -20,6 +20,7 @@ export class ChatComponent implements OnInit {
   receiver ='';
   chatRoomTopic: string = '';
   loadMessagesTopic: string = '';
+  loadMessagesSub;
   receiverSubscription;
 
 
@@ -32,14 +33,15 @@ export class ChatComponent implements OnInit {
       this.receivedMessages=[];
       this.loadMessagesTopic = "/topic/loadMessages/"+ this.loginService.email + "/" + data;
 
-      this.rxStompService.watch(this.loadMessagesTopic+"/result").subscribe((message: Message) => {
+      this.loadMessagesSub = this.rxStompService.watch(this.loadMessagesTopic+"/result").subscribe((message: Message) => {
         var hashCodeTopic = message.body;
         this.chatRoomTopic = "/topic/messages/" + hashCodeTopic;
 
         if(this.receiverSubscription)
-        {
           this.receiverSubscription.unsubscribe();
-        }
+
+        if(this.loadMessagesSub)
+          this.loadMessagesSub.unsubscribe();
 
         console.log("sub is empty");
         this.receiverSubscription = this.rxStompService.watch(this.chatRoomTopic).subscribe((message: Message) => {
@@ -51,6 +53,8 @@ export class ChatComponent implements OnInit {
         
 
         });
+
+
       this.rxStompService.publish({ destination: this.loadMessagesTopic, body: "getAllMessagesTopic" });
  
     }
