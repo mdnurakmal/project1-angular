@@ -15,12 +15,8 @@
     </div>
   </div>
   <div id="body">
-    <div
-      class="message"
-      [ngClass]="{ me: message.sender == this.loginService.email }"
-      *ngFor="let message of receivedMessages"
-    >
-    <div class="msg">
+
+    <div class="msg" *ngFor="let message of receivedMessages">
       <div class="bubble" [ngClass]="{ altfollow: message.sender == this.loginService.email }">
         <div class="txt">
           <span class="name">+353 87 1234 567<span> ~ message.sender</span></span>
@@ -31,7 +27,6 @@
       </div>
     </div>  
 
-    </div>
   </div>
   <div id="footer">
     <div id="smileyIcon">
