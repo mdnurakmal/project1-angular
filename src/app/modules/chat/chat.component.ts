@@ -20,9 +20,11 @@ export class ChatComponent implements OnInit {
   receiver ='';
   chatRoomTopic: string = '';
   loadMessagesTopic: string = '';
+  loadMessagesHistoryTopic: string = '';
+  loadMessagesHistorySubscription;
   loadMessagesSub;
   receiverSubscription;
-
+  
 
   constructor(private rxStompService: RxStompService,public directChatService : DirectChatService,public loginService : LoginService){
 
@@ -34,22 +36,34 @@ export class ChatComponent implements OnInit {
       this.receivedMessages=[];
       this.loadMessagesTopic = "/topic/loadMessages/"+ this.loginService.email + "/" + data;
 
-      
       this.loadMessagesSub = this.rxStompService.watch(this.loadMessagesTopic+"/result").subscribe((message: Message) => {
         
         var hashCodeTopic = message.body;
         this.chatRoomTopic = "/topic/messages/" + hashCodeTopic;
-
+        this.loadMessagesHistoryTopic = "/topic/loadMessages/history"+ hashCodeTopic;
+      
         if(this.receiverSubscription)
           this.receiverSubscription.unsubscribe();
 
         if(this.loadMessagesSub)
           this.loadMessagesSub.unsubscribe();
 
+
+          this.loadMessagesHistorySubscription = this.rxStompService.watch(this.loadMessagesHistoryTopic).subscribe((message: Message) => {
+              if(message.body=="completed")
+              {
+                console.log("completed retrieving message history");
+                this.loadMessagesHistorySubscription.unsubscribe();
+              }
+              else{
+                this.convertToMessage(message.body);
+              }
+          });
+
         console.log("subscribing to " + this.chatRoomTopic);
         this.receiverSubscription = this.rxStompService.watch(this.chatRoomTopic).subscribe((message: Message) => {
           console.log("Received message:" + message.body);
-          this.convertToMessage(message.body,false);
+          this.convertToMessage(message.body);
           console.log("Total rececived messages:" + this.receivedMessages.length);
           
         });
@@ -65,9 +79,8 @@ export class ChatComponent implements OnInit {
     } );
   }
 
-  convertToMessage(msg : string, origin: boolean) : void {
+  convertToMessage(msg : string) : void {
     const obj = JSON.parse(msg);
-    obj.origin=origin;
     this.receivedMessages.unshift(obj);
   }
 
