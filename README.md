@@ -9,7 +9,8 @@ Build a helm chart from local development environment and migrate to GKE using c
 -Dockerizing angular app, spring boot server, nginx reverse proxy server
 
 -Trigger cloud build from cloud source repository to run CI/CD pipeline
--Automate docker image using cloud build
+-Connect to GKE kubernetes cluster in cloud build and deploy to GKE
+-Automate building of docker image using cloud build
 -Automate helm deployment using cloud build*
 
 

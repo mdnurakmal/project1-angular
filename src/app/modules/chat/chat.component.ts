@@ -54,7 +54,8 @@ export class ChatComponent implements OnInit {
           
         });
         
-
+        this.rxStompService.publish({ destination: this.loadMessagesTopic, body: "subscribedToTopic" });
+ 
         });
 
 
