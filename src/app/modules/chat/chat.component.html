@@ -17,7 +17,7 @@
   <div id="body">
     <div
       class="message"
-      [ngClass]="{ me: message.origin }"
+      [ngClass]="{ me: message.sender == this.loginService.email }"
       *ngFor="let message of receivedMessages"
     >
       <div class="messageContent">
