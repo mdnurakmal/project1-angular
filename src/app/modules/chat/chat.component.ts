@@ -40,7 +40,7 @@ export class ChatComponent implements OnInit {
         
         var hashCodeTopic = message.body;
         this.chatRoomTopic = "/topic/messages/" + hashCodeTopic;
-        this.loadMessagesHistoryTopic = "/topic/loadMessages/history"+ hashCodeTopic;
+        this.loadMessagesHistoryTopic = "/topic/loadMessages/history/"+ hashCodeTopic;
       
         if(this.receiverSubscription)
           this.receiverSubscription.unsubscribe();
