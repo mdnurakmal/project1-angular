@@ -48,6 +48,7 @@ End to end encryption
 Periodic backup
 Change of side according to new messages
 Scalability stress test
+Forward/Replay/Star messages
 
 # References
 https://medium.com/johnjjung/how-to-use-gcp-loadbalancer-with-websockets-on-kubernetes-using-services-ingresses-and-backend-16a5565e4702

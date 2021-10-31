@@ -93,16 +93,8 @@ export class ChatComponent implements OnInit {
 
     const message = JSON.stringify(content);
     //this.convertToMessage(message,true);
-    this.rxStompService.publish({ destination: this.chatRoomTopic, body: message });
+    this.rxStompService.publish({ destination: this.chatRoomTopic+"/process", body: message });
 
-
-    // this.conversation.latestMessage = value;
-    // this.conversation.messages.unshift({
-    //   id: 1,
-    //   body: value,
-    //   time: '10:21',
-    //   me: true,
-    // });
   }
 
   emojiClicked(event) {
