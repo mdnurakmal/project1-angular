@@ -13,6 +13,7 @@ import { Message } from '@stomp/stompjs';
 import { WSConversation } from '../shared/model/WSConversation.model';
 import { WSMessage } from '../shared/model/WSMessage.model';
 import { DirectChatService } from '../shared/services/directChat.service';
+import { LoginService } from '../shared/services/login.service';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -27,7 +28,7 @@ export class SidebarComponent implements OnInit {
 
   public conversations : WSConversation[];
 
-  constructor(private rxStompService: RxStompService,public authService : AuthService, public directChat : DirectChatService){
+  constructor(private rxStompService: RxStompService,public authService : AuthService,public loginService:LoginService, public directChat : DirectChatService){
     this.conversations = [];
     authService.user$.subscribe((user) => 
     {
@@ -51,7 +52,12 @@ export class SidebarComponent implements OnInit {
     console.log("populating");
     console.log(message);
     const obj = JSON.parse(message);
-        var temp = new WSConversation(obj["sender"],obj["timestamp"],obj["content"],false);
+    var temp;
+
+    if(obj["sender"]==this.loginService.email)
+      temp = new WSConversation(obj["receiver"],obj["timestamp"],obj["content"],false); 
+    else if(obj["receiver"]==this.loginService.email)
+         temp = new WSConversation(obj["sender"],obj["timestamp"],obj["content"],false);
 
         if(this.conversations.length==0)
           this.conversations.unshift(temp);
@@ -59,7 +65,7 @@ export class SidebarComponent implements OnInit {
         {
             var itExists = false;
             for (let i = 0; i < this.conversations.length; i++) {
-              if(this.conversations[i].name == obj["sender"])
+              if(this.conversations[i].name ==temp.name)
                 itExists=true;
             }
 
