@@ -46,7 +46,7 @@ Sound notification
 Tab notification title change
 End to end encryption
 Periodic backup
-Change of side according to new messages
+update sidebar according to new messages
 Scalability stress test
 Forward/Replay/Star messages
 

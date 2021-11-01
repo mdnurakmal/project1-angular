@@ -81,7 +81,10 @@ export class ChatComponent implements OnInit {
 
   convertToMessage(msg : string) : void {
     const obj = JSON.parse(msg);
-    obj['content'].substring(0, Math.min( obj['content'].length, 10));
+    obj['content']=obj['content'].substring(0, Math.min( obj['content'].length, 10));
+    console.log("new message" + obj['content']);
+    console.log("new message sender is" + obj['sender']);
+
     this.receivedMessages.unshift(obj);
   }
 
