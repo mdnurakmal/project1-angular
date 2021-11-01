@@ -33,8 +33,12 @@ Used configmap in kubernetes to set application.yaml in spring boot at runtime
 
 Store Service Account JSON key in Secret manager and mount in deployment config
 Use instance schedule to resize kubernetes cluster in dev environment to 0 to reduce VM usage after office hours.
+
 # Improvements
 Implement security for spring-boot server instead of using reverse proxy
+
+# Features implemented
+Characters limit of 700 when sending message
 
 # To Do
 Group chat

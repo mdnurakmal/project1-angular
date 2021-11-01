@@ -64,17 +64,21 @@ export class SidebarComponent implements OnInit {
         else
         {
             var itExists = false;
+            var index;
             for (let i = 0; i < this.conversations.length; i++) {
               if(this.conversations[i].name ==temp.name)
+              {
                 itExists=true;
+                index=0;
+              }
+                
             }
 
-            if (!itExists)
+            if (itExists)
             {
-             
-              this.conversations.unshift(temp);
+              delete this.conversations[index];
             }
-             
+            this.conversations.unshift(temp);
 
         }
 
