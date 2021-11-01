@@ -26,7 +26,7 @@ export class SidebarComponent implements OnInit {
   searchText: string;
   loadSidebarTopic: string;
 
-  public conversations : WSConversation[];
+  public conversations : Array<WSConversation>;
 
   constructor(private rxStompService: RxStompService,public authService : AuthService,public loginService:LoginService, public directChat : DirectChatService){
     this.conversations = [];
@@ -76,8 +76,9 @@ export class SidebarComponent implements OnInit {
 
             if (itExists)
             {
-              delete this.conversations[index];
+              this.conversations.splice(index, 1);
             }
+            
             this.conversations.unshift(temp);
 
         }
