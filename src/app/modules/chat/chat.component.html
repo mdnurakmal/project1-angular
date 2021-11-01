@@ -14,7 +14,7 @@
       <img src="../../assets/images/moreVertIcon.svg" />
     </div>
   </div>
-  <div id="body" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+  <div id="body" #scrollMe>
 
     <div class="msg" *ngFor="let message of receivedMessages">
       <div class="bubble" [ngClass]="{ altfollow: message.sender == this.loginService.email }">

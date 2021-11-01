@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { RxStompService } from '@stomp/ng2-stompjs';
 import { Message } from '@stomp/stompjs';
 import { WSMessage } from '../shared/model/WSMessage.model';
@@ -10,9 +10,10 @@ import { LoginService } from '../shared/services/login.service';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit , AfterViewChecked{
   @Input() conversation;
   @Output() onSubmit: EventEmitter<any> = new EventEmitter();
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   emojiPickerVisible;
   public receivedMessages: WSMessage[] = [];
 
@@ -78,6 +79,15 @@ export class ChatComponent implements OnInit {
     }
     } );
   }
+  ngAfterViewChecked(): void {
+    this.scrollToBottom();        
+  }
+
+  scrollToBottom(): void {
+    try {
+        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch(err) { }                 
+}
 
   convertToMessage(msg : string) : void {
     const obj = JSON.parse(msg);
@@ -86,9 +96,13 @@ export class ChatComponent implements OnInit {
     // console.log("new message sender is" + obj['sender']);
 
     this.receivedMessages.push(obj);
+    console.log("push");
+    //window.scroll(0,0);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.scrollToBottom();
+  }
 
 
 
