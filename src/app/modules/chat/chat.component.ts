@@ -85,7 +85,7 @@ export class ChatComponent implements OnInit {
     // console.log("new message" + obj['content']);
     // console.log("new message sender is" + obj['sender']);
 
-    this.receivedMessages.unshift(obj);
+    this.receivedMessages.push(obj);
   }
 
   ngOnInit(): void {}

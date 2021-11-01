@@ -70,7 +70,11 @@ export class SidebarComponent implements OnInit {
             }
 
             if (!itExists)
+            {
+             
               this.conversations.unshift(temp);
+            }
+             
 
         }
 
