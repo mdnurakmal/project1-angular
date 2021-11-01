@@ -34,7 +34,9 @@
   
     #chat {
       background-color: #f7f9fa;
-      flex-grow: 1;
+      //flex-grow: 1;
+      width:70%;
+  
       #chatPlaceholder {
         display: flex;
         align-items: center;

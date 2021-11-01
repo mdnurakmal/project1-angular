@@ -81,9 +81,9 @@ export class ChatComponent implements OnInit {
 
   convertToMessage(msg : string) : void {
     const obj = JSON.parse(msg);
-    obj['content']=obj['content'].substring(0, Math.min( obj['content'].length, 10));
-    console.log("new message" + obj['content']);
-    console.log("new message sender is" + obj['sender']);
+    // obj['content']=obj['content'].substring(0, Math.min( obj['content'].length, 700));
+    // console.log("new message" + obj['content']);
+    // console.log("new message sender is" + obj['sender']);
 
     this.receivedMessages.unshift(obj);
   }
@@ -96,6 +96,8 @@ export class ChatComponent implements OnInit {
     let value = event.target.value.trim();
     this.message = '';
     if (value.length < 1) return false;
+
+    value = value.substring(0, Math.min(value.length, 700));
 
     const current = new Date();
     const timestamp = current.toLocaleString('en-US', { hour: 'numeric',minute: 'numeric', hour12: true })
