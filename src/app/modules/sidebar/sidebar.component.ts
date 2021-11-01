@@ -69,7 +69,7 @@ export class SidebarComponent implements OnInit {
               if(this.conversations[i].name ==temp.name)
               {
                 itExists=true;
-                index=0;
+                index=i;
               }
                 
             }
